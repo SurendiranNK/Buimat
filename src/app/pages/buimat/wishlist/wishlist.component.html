@@ -1,0 +1,67 @@
+<main>
+    <section class="bu-product-details">
+       <div class="page-header page-header-catalog">
+          <div class="page-breadcrumbs">
+             <div class="martfury-container">
+                <ul class="breadcrumbs">
+                   <li itemprop="itemListElement" itemscope="">
+                      <a class="home"  href="/home" itemprop="item"><span itemprop="name">Home </span></a>
+                   </li>
+                   <span class="sep">/</span>
+                   <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                      <span itemprop="item"><span itemprop="name">Wishlist</span></span>
+                   </li>
+                </ul>
+             </div>
+          </div>
+       </div>
+       <div class="container-fluid main">
+          <div class="row m-0 p-0">
+            <div class="title">
+                <h1 class="">WISHLIST</h1>
+            </div>
+            <div class="card-body content">
+               <div class="row list d-flex pointer" *ngFor="let data of favourites;let i=index" 
+                        >
+                     <div class="col-md-3 m-0 p-0  mx-auto text-center" (click)="gotoDetailedPage(data)">
+                        <img class="img-fluid image-class p-2"  alt=""
+                        onerror="this.src='/assets/img/favicon/favicon.svg'" src="{{data.image[0]}}">
+                     </div>
+                     <div class="col-md-6" (click)="gotoDetailedPage(data)">
+                        <p class="product_name mb-1">{{data.productName}}</p>
+                        <p class="product_desc mb-1">{{data.description}}</p>
+
+                        <ul class="entry-meta">
+                           <li class="meta-brand" *ngIf="data.category">
+                              <small>Category : </small> <a class="meta-value">{{data.category.categoryName}}</a>
+                           </li>
+                        </ul>
+                        <ul class="entry-meta">
+                           <li class="meta-brand" *ngIf="data.brand">
+                              <small>Brand : </small><a  class="meta-value">{{data.brand.brandName}}</a>
+                           </li>
+                        </ul>
+                        <ul class="entry-meta">
+                           <li class="meta-brand" *ngIf="data.subcategory">
+                              <small>Sub Category : </small><a  class="meta-value">{{data.subcategory.subcategoryName}}</a>
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="col-md-2 my-auto" (click)="gotoDetailedPage(data)">
+                        <p class="product_price mb-1">{{data.mrp | currency:'INR'}}</p>
+                     </div>
+                     <div class="col-md-1 my-auto mx-auto">
+                        <a  (click)="removeWishList(data)"><span class="pi pi-times ic-delete m-1" ></span></a>
+                     </div>
+               </div>
+               <div class="p-5 empty text-center" *ngIf="favourites.length==0">Your Wishlist is currently empty</div>
+
+            </div>
+    
+          </div>
+       </div>
+    </section>
+</main> 
+<p-toast></p-toast>
+
+  

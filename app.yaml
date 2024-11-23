@@ -1,0 +1,14 @@
+runtime: nodejs16
+
+instance_class: F2
+
+env_variables: 
+  BUCKET_NAME: "buimat-webapp"
+
+handlers:
+- url: /
+  static_files: dist/buimat/index.html
+  upload: dist/buimat/index.html
+
+- url: /
+  static_dir: dist/buimat

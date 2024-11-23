@@ -1,0 +1,136 @@
+<div class="bu-logged-in">
+
+  <header class="bu-header-section site-header">
+    <div class="top-menu p-0">
+      <div class="">
+        <div class="row m-0 p-1">
+          <div class="header-logo col-md-2 my-auto pointer">
+             <a  href="/home"> <img class="site-logo"  alt="Buimat" src="../../../../../assets/img/favicon/buimat.png"/></a>          
+          </div>
+          <div class="col-md-10 row m-0 p-0">
+            <div class="product-extra-search d-flex col-md-6" (click)="openModal()">
+                <div class="my-auto d-flex col-md-5 pointer">
+                  <span class="lnr lnr-map-marker my-auto"></span> 
+                  <div class="my-auto">
+                    <p *ngIf="isUserLoggedin" class="d-flex _address">Delivering to {{locationInfo.locationDetail}}-{{locationInfo.pincode}}</p>
+                    <p class="m-0" *ngIf="!isUserLoggedin" ><strong>Update Location</strong></p>
+                  </div>
+                  
+                </div>
+                <div class="my-auto d-flex col-md-7">
+                <!-- <form class="products-search"  method="get">
+                  <div class="input-group my-auto">
+                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                    <button type="button" class="btn btn-outline-primary">search</button>
+                  </div>
+                </form> -->
+                </div>
+           
+            </div>
+            <ul class="bu-headmenu m-0 p-1 col-md-6">                
+              <li>
+                <span class="lnr lnr-phone-handset"></span> 
+                <div>
+                  <small class="d-flex">Call us 24/7</small>
+                  <strong class="f14">(+91)7381813131</strong>
+                </div>
+              </li>
+              <li (click)="gotoWishlist()">
+                <a class="pointer">
+                  <span class="lnr lnr-heart"></span>
+                  <span class="badge rounded-pill bg-primary">{{wishListCount}}</span>
+                </a>
+              </li>
+              <li (click)="goToCart()">
+                <a class="pointer">
+                  <span class="lnr lnr-cart"></span>
+                  <span class="badge rounded-pill bg-primary">{{cartCount}}</span>
+                </a>
+              </li>
+              <li *ngIf="!isUserLoggedin" class="pointer"  (click)="login()">
+                <!-- <span class="lnr lnr-user"></span>  -->
+                <div id="avatar">
+                  <img class="image-class" src="../../../../../assets/img/favicon/dummy.png" alt="" >
+                  </div>
+                <div>
+                  <strong class="d-flex">Log In</strong>
+                  <!-- <strong>Register</strong> -->
+                </div>
+              </li>
+              <li *ngIf="isUserLoggedin" class="pointer" (click)="logout()">
+                <div id="avatar">
+                 <img class="image-class" src="../../../../../assets/img/favicon/dummy.png"  alt="">
+                 </div>
+                <div >
+                  <small class=" d-flex">Welcome!</small>
+                  <strong class="f14">{{userInfo.tradeName}}</strong>
+                </div>
+              </li>
+        
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-menu">
+      <div class="header-row">
+        <ul id="menu-home-menu" class="bu-secondMenu d-flex list-unstyled align-items-center">
+          <li class="dropdown pointer">
+            <a class="dropdown-toggle" data-bs-toggle="dropdown"  data-toggle="dropdown">Shop by Categories<b class="caret"></b></a>
+            <ul class="dropdown-menu pointer" >
+              <li  class="pointer" *ngFor="let data of categoryLists" (click)="showProductDetails(data)">{{data.categoryName | uppercase}}</li>
+            </ul>
+          </li>
+          
+          <li class="pointer"  (click)="showVendor()"><a>My account</a></li>
+          <li class="pointer" ><a>Download the App</a></li>
+        </ul>
+      </div>        
+    </div>      
+  </header>
+</div>
+
+<ng-content></ng-content>
+<ng-template #content let-modal>
+  <div class="modal-header m-0">
+     <div class="row w-100">
+        <p class="m-0">Choose Your Location</p>
+     </div>
+  </div>
+  <div class="modal-body w-100 p-3">
+        <span class="a-size-small">Select the delivery location to see product and the delivery availability</span>
+        <div class="" *ngIf="isUserLoggedin">
+           <div class="">
+              <div class="card slide _billing" *ngFor="let data of deliveryAddress;let i=index" (click)="selectDelieveryAddress(data,i)"
+              [ngStyle]="{'border': data._id===_delivery_id ? '2px solid #8fae1b' : '2px solid #FEF8EB' }">
+              <h3><strong> {{data.username|uppercase}} </strong> </h3>
+              <p>{{data.addressLine1}},  {{data.addressLine2}}, {{data.city}},  {{data.state}} - {{data.pincode}}</p>
+              <p>{{data.contactNumber}}</p>
+           </div>
+           <p class="hr-lines text-muted">or enter an Indian pincode</p>
+           <div class="row">
+              <form  [formGroup]="form" (ngSubmit)="onSubmit()" class="bu-userdetails-form">
+              <div class="row">
+                 <div class="col-9 p-1">
+                    <input  (keypress)="omit_special_char($event)" type="text" class="form-control" 
+                    placeholder="Enter PINCODE"  formControlName="pincode" maxlength="6"
+                    [ngClass]="{'is-invalid': isSubmit && ff['pincode'].errors }" >
+                    <div *ngIf="isSubmit && ff['pincode'].errors" class="invalid-feedback">
+                       <small *ngIf="ff['pincode'].errors?.['required']">Enter PINCODE</small>
+                       <small *ngIf="ff['pincode'].errors?.['pattern']">Invalid PINCODE</small>
+                    </div>
+                 </div>
+                 <div class="col-3 p-1">
+                    <button type="submit" class="form-control checkout-button"> APPLY</button>
+                 </div>
+              </div>
+              </form>   
+           </div>
+           </div>
+          </div>
+        <div class="p-3" *ngIf="!isUserLoggedin">
+           <button type="button" class="form-control checkout-button" (click)="login()">
+           Sign in to see the products based on location</button>
+        </div>
+  </div>
+</ng-template>

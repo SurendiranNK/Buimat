@@ -1,0 +1,187 @@
+<main>
+    <section class="bu-product-details">
+       <div class="page-header page-header-catalog">
+          <div class="page-breadcrumbs">
+             <div class="martfury-container">
+                <ul class="breadcrumbs">
+                   <li itemprop="itemListElement" itemscope="">
+                      <a class="home"  href="/home" itemprop="item"><span itemprop="name">Home </span></a>
+                   </li>
+                   <!-- <span class="sep">/</span>
+                   <li itemprop="itemListElement" itemscope="" >
+                        <a class="home" href="" itemprop="item"><span itemprop="name">Shop </span></a>
+                   </li> -->
+                   <span class="sep">/</span>
+                   <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                      <span itemprop="item"><span itemprop="name">Cart</span></span>
+                   </li>
+                </ul>
+             </div>
+          </div>
+       </div>
+       <div class="container-fluid main">
+          <div class="row p-1">
+            <div class="title">
+                <h1 class="">Cart</h1>
+            </div>
+            <div class="content">
+               <div class="card-body">
+                  <div class="table-responsive">
+                     <table class="table custom-class">
+                        <thead>
+                           <tr>
+                              <!---->
+                              <th>S.NO</th>
+                              <th>PRODUCT</th>
+                              <th>UNIT PRICE</th>
+                              <th>MRP</th>
+                              <th>GST</th>
+                              <th>QUANTITY</th>
+                              <th class="text-center">ORDERED UNIT</th>
+                              <th>TOTAL PRICE</th>
+                              <th class="w-delete"></th>
+                           </tr>
+                        </thead>
+   
+                        <tbody>
+                           <!-- {{cartLists|json}} -->
+                           <tr *ngFor="let data of cartLists ;let i=index">
+                              <td class="text-center">{{i+1}}</td>
+                              <td>
+                                 <div class="d-flex my-auto">
+                                    <img class="img-fluid image-class p-2"  alt=""
+                                    onerror="this.src='/assets/img/favicon/favicon.svg'" src="{{data.productDetails.image[0]}}">
+                                    <div class="info my-auto">
+                                       <h3>{{data.productDetails.productName}}</h3>
+                                       <p>SKU : <small class="tax_label"> {{data._id}}</small> </p>
+
+                                    </div>
+                                 </div>
+                                 <div class="m-data">
+                           
+                                    <div>
+                                       <p>Unit Price : <span class="amount"> {{data.unitPriceWithGST |currency:'INR'}}</span> <small class="tax_label"> (incl. GST)</small> </p>
+                                    </div> 
+                                      <p>Ordered Unit : <span class="tax_label">  {{data.orderedUnit.symbolToBeDisplayed}}</span></p>
+
+                                    <div>
+                                      <p>MRP : <span class="amount"> {{data.productDetails.mrp |currency:'INR'}}</span></p>
+                                    </div> 
+                                    <div class="form-group">
+                                       <p>SGST : <span>{{data.productDetails.sgst}}% </span> </p>
+                                       <p>CGST : <span>{{data.productDetails.cgst}}%</span> </p>
+                                    </div> 
+                                     <div class="qty-container">
+                                       <button class="qty-btn-minus btn-cornered"   (click)="updateCartQuantity(i,false)"  onkeyPress="if(data.quantity === data.productDetails.minimumOrderQty) return false;" type="button"><i class="pi pi-minus"></i></button>
+                                       <input type="number" name="qty" appNumericInput maxlength="4" class="input-qty input-cornered" [value]="data.quantity" (change)="onNumberChange($event,data.quantity,i)"/>
+                                       <button class="qty-btn-plus btn-cornered" type="button"><i class="pi pi-plus"   (click)="updateCartQuantity(i,true)"></i></button>
+                                    </div>
+                                    <p>Total Price : <span class="amount"> {{data.totalPriceWithGST |currency:'INR'}}</span><small class="tax_label"> (incl. GST)</small></p>
+                                 
+                                 
+                                 </div>
+ 
+                              </td>
+                              <td>
+                                 <div><span class="amount"> {{data.unitPriceWithGST |currency:'INR'}}</span> <small class="tax_label"> (incl. GST)</small></div> 
+                                 <div><span class="amount_"> {{data.unitPriceWithoutGST |currency:'INR'}}</span> <small class="tax_label"> (without GST)</small></div> 
+                              </td>
+                              <td><span class="amount"> {{data.productDetails.mrp |currency:'INR'}}</span>  </td>
+                              <td>
+                                 <div class="form-group row">
+                                    <p>SGST : <span>{{data.productDetails.sgst}}% </span> </p>
+                                 </div>
+                                 <div class="form-group row">
+                                    <p>CGST : <span>{{data.productDetails.cgst}}%</span> </p>
+                                </div>
+                              </td>
+                              <td>
+                                 <div class="qty-container">
+                                    <button class="qty-btn-minus btn-cornered"   (click)="updateCartQuantity(i,false)" onkeyPress="if(data.quantity === 25) return false;" type="button"><i class="pi pi-minus"></i></button>
+                                    <input type="number" name="qty" appNumericInput maxlength="4" class="input-qty input-cornered" [value]="data.quantity" (change)="onNumberChange($event,data.quantity,i)"/>
+                                    <button class="qty-btn-plus btn-cornered" type="button"  (click)="updateCartQuantity(i,true)"><i class="pi pi-plus" ></i></button>
+                                </div>
+                                <label class="minQty"><small><b>Min. Quantity : {{data.productDetails.minimumOrderQty}}</b></small></label>
+                              </td>
+                              <td class="text-center"><p>{{data.orderedUnit.symbolToBeDisplayed}}</p></td>
+
+                              <td>
+                                 <div><span class="amount"> {{data.totalPriceWithGST |currency:'INR'}}</span> <small class="tax_label"> (incl. GST)</small></div> 
+                                 <!-- <div><span class="amount"> {{data.totalPriceWithoutGST |currency:'INR'}}</span> <small class="tax_label"> (without GST)</small></div> -->
+                              </td>
+
+                              <td><i class="pi pi-times ic-delete" (click)="deleteCart(data._id,data.productDetails.productName)"></i></td>
+                           </tr>
+      
+                        </tbody>
+
+                     </table>
+                     <div class="p-5 empty text-center" *ngIf="cartLists.length==0">Your Cart is currently empty</div>
+
+                  </div>
+                     <!-- {{cartLists|json}} -->
+                  <div class="row m-0 p-2" >
+                     <div class="row d-flex m-0 p-2" [ngClass]="{'col-md-12':cartLists.length==0, 'col-md-6':cartLists.length>0}">
+                        <div class="col-lg-12">
+                           <div class="pull-left">
+                              <button pButton type="button" (click)="backtoShop()"
+                              icon="pi pi-arrow-left" class="checkout-button"
+                              iconPos="left" 
+                              label="back to shop">  </button>
+                           </div>
+                                       
+                           <!-- <div class="pull-right">
+                              <button pButton type="button" class="checkout-button"(click)="updateCart()"
+                              icon="pi pi-sync" 
+                              iconPos="left" 
+                              label="update cart">  </button>
+                           </div> -->
+                        </div> 
+                     </div>
+                     <div class="col-md-6 m-0 p-2"  *ngIf="cartLists.length>0">
+                       <div class="row m-0 total-cart">
+                         <table cellspacing="0" class="table borderless">
+                            <tbody>
+                               <tr class="cart-subtotal">
+                                  <td>Subtotal</td>
+                                  <td data-title="Subtotal" class="text-end"><span class="amount">{{subTotal |currency:'INR'}}</span> <small class="tax_label"> (incl. GST)</small></td>
+                               </tr>
+                               <tr class="ship-info">
+                                  <td colspan="2">
+                                     <p class="">Shipping</p>
+                                     <label for=""><small class="tax_label"> Flat rate</small></label>
+                                     <p class="">
+                                        Shipping to <strong>Pondicherry (Puducherry)</strong>. 				
+                                     </p>
+                                  </td>
+                               </tr>
+                               <tr class="order-total">
+                                  <td><b>Total Price</b></td>
+                                  <td data-title="Total" class="text-end"><strong><span class="amount">{{ subTotal |currency:'INR'}}</span><small class="tax_label"> (incl. GST)</small></strong> 
+                                </td>
+                               </tr>
+                            </tbody>
+                         </table>
+     
+     
+                         
+     
+                         <div class="proceed-to-checkout">
+                            <button type="button" class="form-control checkout-button" (click)="proceedToCheckout()">
+                           <b> PROCEED TO CHECKOUT</b></button>
+                         </div>
+                      </div>
+                     </div>
+                 </div>
+               
+               </div>
+            </div>
+            <!-- -->
+          
+      
+          </div>
+       </div>
+    </section>
+  </main> 
+  
+  <p-toast></p-toast>

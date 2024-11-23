@@ -1,0 +1,98 @@
+  <div class="bu-logged-in">
+    <!-- header starts -->
+    <header class="bu-header-section">
+        <nav class="navbar navbar-expand-lg" aria-label="Offcanvas navbar large">
+          <div class="container">
+              <div class="col-sm-3">
+                <a class="bu-headlogo"><img src="../../../../../assets/img/project/logo.svg"></a>
+              </div>
+            <div class="col-sm-9 d-flex justify-content-end flex-grow-1">
+              <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2">
+              <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
+                <div class="offcanvas-header">
+                  <!-- <h5 class="offcanvas-title" id="offcanvasNavbar2Label">Offcanvas</h5> -->
+                  <button type="button" class="btn-close btn-close-black text-right" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body justify-content-end">
+                  <ul class="navbar-nav bu-headmenu-wrap bu-loggedin-mitems">
+                    <li class="nav-item">
+                      <a class="nav-link" href="javascript:void(0)">
+                      <i class="pi pi-bell"></i>
+                      Alerts
+                      </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link" >
+                      <i class="pi pi-user"></i>
+                      Account
+                      </a>
+                    </li>
+                    <li class="nav-item bu-profile-listwrap">
+                      <div class="clearfix bu-profile-info">
+                        <a class="nav-link" href="javascript:void(0)">
+                             <!-- <img src="assets/images/profile.png" alt="Test user"> -->
+                        </a>
+                        <p><strong>Test user</strong> <br><span>12345908</span></p>
+                      </div>
+                      <a href="#" class="bu-dropdown-arrow" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="pi pi-angle-down"></i>
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                          <a class="dropdown-item" href="index.html">
+                          <i class="pi pi-cog" aria-hidden="true"></i>Settings
+                          </a>
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="index.html">
+                          <i class="pi pi-sign-out" aria-hidden="true"></i>Logout
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <div class="bu-searchform-wrap">
+          <div class="container">
+            <div class="row align-items-center">
+              <div class="col-sm-8 col-md-9 col-lg-10">
+                <form class="col bu-head-searchform">
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Search products">
+                    <button class="input-group-btn btn" type="submit">
+                    <i class="pi pi-search" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <div class="col-sm-4 col-md-3 col-lg-2">
+                <ul class="d-flex list-unstyled  justify-content-end align-items-center">
+                  <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0)">
+                    <i class="pi pi-heart"></i>
+                              Wishlist
+                    </a>
+                  </li>
+                  <li class="nav-item bu-cart-info">
+                    <a class="nav-link" href="javascript:void(0)">
+                    <i class="pi pi-shopping-cart"></i>
+                    <span class="bu-cart-value">0</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+  </div>
+  
+  <!-- NOTE Content -->
+  <ng-content></ng-content>
+  

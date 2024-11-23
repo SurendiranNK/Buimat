@@ -1,0 +1,254 @@
+<main>
+   <section class="bu-section-spacer">
+      <ngb-carousel>
+         <ng-template ngbSlide>
+            <div class="picsum-img-wrapper">
+               <img src="https://buimat.com/api/images/banner-1.png">
+            </div>
+         </ng-template>
+         <ng-template ngbSlide>
+            <div class="picsum-img-wrapper">
+               <img  src="https://buimat.com/api/images/banner-3.jpg" >
+            </div>
+         </ng-template>
+      </ngb-carousel>
+      <div class="martfury-container">
+         <div class="row m-0 p-0">
+            <div class="col-sm my-auto bRight">
+               <div class=" ">
+                  <img class="icon"src="../../../../assets/img/favicon/icon_truck.png" />
+                  <span class="box-title">Free Delivery</span>
+               </div>
+            </div>
+            <div class="col-sm my-auto bRight">
+               <div class="my-auto">
+                  <!-- <i class="pi pi-sync"></i> -->
+                  <img class="icon1" src="../../../../assets/img/favicon/icon_sync.png" />
+                  <span class="box-title">Easy Return</span>
+               </div>
+            </div>
+            <div class="col-sm my-auto bRight">
+               <div class="my-auto">
+                  <img class="icon1" src="../../../../assets/img/favicon/icon_card.png" />
+                  <span class="box-title">Secure Payment</span>
+               </div>
+            </div>
+            <div class="col-sm  my-auto bRight">
+               <img class="icon1" src="../../../../assets/img/favicon/ic_contact.png" />
+               <span class="box-title"> <a class="" href="tel:(+91)7381813131">Call To Order</a></span>
+            </div>
+            <div class="col-sm my-auto">
+               <img class="icon1" src="../../../../assets/img/favicon/icon_chat.png" />
+               <span class="box-title">24/7 Support</span>
+            </div>
+         </div>
+      </div>
+   </section>
+   <section class="">
+      <div class="container">
+         <span class="row bu-h2title">How it works</span>        
+         <div class="row desk-pt">
+            <div class="col-sm-4 text-center">
+               <figure class="hiw-cardImgWrap">
+                  <img src="../../../../assets/img/favicon/browse_your_favourite.png" class="vc_single_image-img attachment-medium" alt="" decoding="async" fetchpriority="high" sizes="(max-width: 300px) 100vw, 300px">                
+               </figure>
+               <div class="hiw-cardContent">
+                  <h4>Browse your favourite vendors</h4>
+                  <p>Choose a vendor and fill your cart with the products you need.</p>
+               </div>
+            </div>
+            <div class="col-sm-4 text-center" >
+               <figure class="hiw-cardImgWrap">
+                  <img src="../../../../assets/img/favicon/get_delivered.png" class="vc_single_image-img attachment-medium" alt="" decoding="async" fetchpriority="high"  sizes="(max-width: 300px) 100vw, 300px">
+               </figure>
+               <div class="hiw-cardContent">
+                  <h4>Get it delivered when you need it</h4>
+                  <p>We notify the supplier to start
+                     preparing your order. Once it’s good-to-go
+                     we’ll pick it up and deliver it.
+                  </p>
+               </div>
+            </div>
+            <div class="col-sm-4 text-center">
+               <figure class="hiw-cardImgWrap">
+                  <img src="../../../../assets/img/favicon/focus_on_matters.png"  class="vc_single_image-img attachment-medium" alt="" decoding="async" fetchpriority="high"  sizes="(max-width: 300px) 100vw, 300px">
+               </figure>
+               <div class="hiw-cardContent">
+                  <h4>Focus on what matters</h4>
+                  <p>You can get back to focusing on what
+                     matters most knowing your materials                  
+                     are on their way.                  
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <section class="bu-product-details">
+      <div class="row m-0 p-0">
+         <div class="col-md-12">
+            <div *ngFor="let category of categoryProductsDataLists;let i=index">
+               <div class="card cate-products"  *ngIf="category.products.length>0">
+                  <div class="card-header">
+                     <div class="d-flex align-items-center justify-content-between">
+                        <p class="text-left m-0"><b>{{category.categoryName}}</b></p>
+                        <a class="header-link" *ngIf="isUserLoggedin" (click)="viewAll(category)"><u>View All</u></a>
+                     </div>
+                  </div>
+                  <div class="card-body">
+                     <div class="row">
+                       
+                        <div class="_products col-md-2" *ngFor="let data of category.products">
+                           <div class="card slide"> 
+                              <div class="img-grid-container">
+                                 <img class="img-fluid text-center image-class p-1 pointer"  alt=""  (click)="showProductDetails(data)"
+                                    onerror="this.src='/assets/img/favicon/favicon.svg'" src="{{data.image[0]}}">
+                                 <div class="bu-headmenu overlay" *ngIf="isUserLoggedin">
+                                    <!-- <li><a><span class="lnr lnr-cart btn-cart m-1"></span> </a></li> -->
+                                    <!-- <li><a><span class="lnr lnr-eye btn-circle m-1"></span></a> </li> -->
+                                    <!-- <li><a class="pointer" *ngIf="!isFavourite(data._id)" (click)="addtoFavourite(data,true)"><span class="pi pi-heart btn-circle"></span></a> </li>
+                                    <li><a class="pointer" *ngIf="isFavourite(data._id)" (click)="addtoFavourite(data,false)"><span class="pi pi-heart-fill btn-circle"></span></a> </li> -->
+
+                                    <!-- {{data.isFavourite}} -->
+                                    <li><a class="pointer" *ngIf="!data.isFavourite" (click)="addtoFavourite(data,true)"><span class="pi pi-heart btn-circle"></span></a> </li>
+                                    <li><a class="pointer" *ngIf="data.isFavourite" (click)="addtoFavourite(data,false)"><span class="pi pi-heart-fill btn-circle"></span></a> </li>
+
+                                 </div>
+                              </div>
+                              <div  *ngIf="isUserLoggedin">
+                                 <!-- <span class="product_price"> <span class="">₹ </span>{{data.zone.price}}</span>
+                                 <span class="label-mrp"><del><span class="">₹ </span>{{data.mrp}}</del></span> -->
+
+                                 <span class="product_price">{{data.zone!.price | currency:'INR'}}</span>
+                                 <span class="label-mrp"><del>{{data.mrp | currency:'INR'}}</del></span>
+                              </div>
+                              <p class="product_name mb-3">{{data.productName}}</p>
+                           </div>
+                        </div>
+                     </div>
+                  <!-- <ngx-slick-carousel class="carousel"  #slickModal="slick-carousel" [config]="slideConfig" >
+                     <div ngxSlickItem *ngFor="let data of productsDataLists" >
+                        <div class="card slide">
+                           <div class="img-grid-container">
+                                 <img class="img-fluid text-center image-class p-3"  alt=""
+                                    onerror="this.src='/assets/img/favicon/favicon.svg'" src="{{data.product.image[0]}}">
+                              <div class="bu-headmenu overlay">
+                                 <li><a><span class="lnr lnr-cart btn-cart m-1"></span> </a></li>
+                                 <li><a><span class="lnr lnr-eye btn-circle m-1"></span></a> </li>
+                                 <li><a><span class="lnr lnr-heart btn-circle m-1"></span></a> </li>
+                              </div>
+                           </div>
+                           <p class="product_price"><span>&#8377;{{data.product.mrp}}</span></p>
+                           <p class="product_name mb-3">{{data.product.productName}}</p>
+                        </div>
+                     </div>
+                     </ngx-slick-carousel> -->
+               </div>
+            </div>
+         </div>
+      </div>
+      </div>
+      <!-- </div> -->
+   </section>
+   <section class="bu-new-arrival">
+      <div class="row m-0 p-0" >
+         <div class="col-md">
+            <div class="wpb_wrapper">
+               <div class="mf-banner-medium  layout-5 has-img " >
+                  <a class="link-all"></a>
+                  <div class="banner-content">
+                     <div class="s-content"></div>
+                     <!-- <div class="link-box"><a class="link">Shop Now</a></div> -->
+                  </div>
+                  <div class="banner-image"><img src="https://buimat.com/wp-content/uploads/2021/07/Cement-Banner-2-2.png" data-original="https://buimat.com/wp-content/uploads/2021/07/Cement-Banner-2-2.png" alt="" class=""></div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md">
+            <div class="wpb_wrapper">
+               <div class="mf-banner-medium  layout-5 has-img ">
+                  <a class="link-all"></a>
+                  <div class="banner-content">
+                     <div class="s-content"></div>
+                     <!-- <div class="link-box"><a class="link">Shop Now</a></div> -->
+                  </div>
+                  <div class="banner-image"><img src="	https://buimat.com/wp-content/uploads/2021/07/BULB-2.png" data-original="https://buimat.com/wp-content/uploads/2021/07/TMT-BANNER-3.png" alt="" class="" ></div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md">
+            <div class="wpb_wrapper">
+               <div class="mf-banner-medium  layout-5 has-img " >
+                  <a class="link-all"></a>
+                  <div class="banner-content" >
+                     <div class="s-content"></div>
+                     <!-- <div class="link-box"><a class="link">Shop Now</a></div> -->
+                  </div>
+                  <div class="banner-image"><img src="https://buimat.com/wp-content/uploads/2021/07/TMT-BANNER-3.png" data-original="" alt="" class="" ></div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <!-- <section class="bu-advertise-section">
+      <div class="container">
+         <div class="bu-advertise-wrap">
+            <div class="bu-advertise-inner">
+               <a class="btn btn-advertise" href="https://www.buimat.com/vendor-registration/" title="">Advertising Here</a>
+            </div>
+         </div>
+      </div>
+      </section> -->
+   <!-- <section class="bu-new-arrival">
+      <div class="row m-0 p-0" >
+         <div class="card">
+            <div class=" card-header">
+               <div class="d-flex align-items-center justify-content-between">
+                  <h5 class="text-left m-0">Hot New Arrivals</h5>
+               </div>
+            </div>
+            <div class="card-body">
+               <div class="row">
+                  <div class="col-md-3" *ngFor="let data of productsDataLists;let i=index">
+                     <div class="card slide">
+                        <div class="product-details row">
+                           <div class="col-5">
+                              <div class="_allProduct">
+                                 <img class="img-fluid image-class p-2"  alt=""
+                                    onerror="this.src='/assets/img/favicon/favicon.svg'" src="{{data.product.image[0]}}">
+                                 <div class="bu-headmenu">
+                                     <li><a><span class="lnr lnr-phone-handset"></span> </a></li>
+                                     <li><a><span class="lnr lnr-heart"></span></a> </li>
+                                     <li><a><span class="lnr lnr-cart"></span></a> </li>
+                                 </div>
+                             </div>
+                           </div>
+                           <div class="col-7 mt-3">
+                              <p class="product_name"><span>&#8377;{{data.product.mrp}}</span></p>
+                              <p class="product_price">{{data.product.productName}}</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      </section> -->
+</main>
+
+
+<ng-template #content let-modal>
+   <div class="modal-header m-0">
+      <div class="row w-100">
+         <p class="m-0">Choose Your Location</p>
+      </div>
+   </div>
+   <div class="modal-body w-100 p-3">
+         <span class="a-size-small">Select the delivery location to see product and the delivery availability</span>
+         <div class="p-3">
+            <button type="button" class="form-control checkout-button" (click)="login()">
+            Sign in to see the products based on location</button>
+         </div>
+   </div>
+ </ng-template>

@@ -1,0 +1,85 @@
+
+/*** footer starts ***/
+.bu-footer-section {
+    background: #01527A;
+    border-top: 1px solid #ececec;
+    -webkit-box-shadow: 0px 1px 1px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0px 1px 1px rgba(50, 50, 50, 0.75);
+    box-shadow:         0px 1px 1px rgba(50, 50, 50, 0.75);
+}
+.bu-footer-section .block-title {
+    margin-bottom: 2rem;
+}
+.footer-blue {
+    padding: 4rem 0;
+    background: #1b84b7;
+    color: #fff;
+}
+.footer-blue img { 
+    max-height: 3rem;
+    margin-right: 1rem;
+}
+.bu-email-map {
+    display: flex;
+    align-items: center;
+}
+.bu-email-icon {
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    background: #ff612b;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 1.5rem;
+    font-size: 2rem;
+}
+.bu-email-heading a{
+    color: #fff;
+    text-decoration: none;
+}
+.bu-footer-menusection {
+    background: #f7f7f7;
+    padding: 4rem 0 3rem;
+}
+.footer-logo img{
+    width: 20rem;
+    margin-bottom: 2rem;
+}
+.bu-footer-menusection .footer-logo {
+    width: 10rem;
+    margin-bottom: 2rem;
+}
+.bu-footer-menusection .textwidget {
+    padding-right: 3rem;
+}
+.bu-footer-menusection  .foot-menu li a {
+    text-decoration: none;
+    color: initial;
+    padding: 0 0 1rem;
+    display: block;
+}
+.bu-footer-menusection .foot-menu li a:hover { 
+    color: #01527A;
+}
+.bu-social-items ul li {
+    padding-left: 1rem;
+}
+.bu-social-items ul li:first-child { 
+    padding-left: 0;
+}
+.bu-social-items ul li a i { 
+    font-size: 2rem;
+    color: #01527A;
+}
+#bu-copyright {
+    padding: 1rem 0;
+}
+#bu-copyright p {
+    color: #fff;
+    margin: 0;
+}
+ul li{
+    cursor: pointer;
+}
+/*** footer ends ***/

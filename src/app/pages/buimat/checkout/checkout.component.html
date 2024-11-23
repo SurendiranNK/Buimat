@@ -1,0 +1,460 @@
+<main>
+    <section class="bu-product-details">
+       <div class="page-header page-header-catalog">
+          <div class="page-breadcrumbs">
+             <div class="martfury-container">
+                <ul class="breadcrumbs">
+                   <li itemprop="itemListElement" itemscope="">
+                      <a class="home"  href="/home" itemprop="item"><span itemprop="name">Home </span></a>
+                   </li>
+                   <!-- <span class="sep">/</span>
+                   <li itemprop="itemListElement" itemscope="" >
+                        <a class="home" href="" itemprop="item"><span itemprop="name">Shop </span></a>
+                   </li> -->
+                   <span class="sep">/</span>
+                   <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                      <span itemprop="item"><span itemprop="name">Cart</span></span>
+                   </li>
+                </ul>
+             </div>
+          </div>
+       </div>
+       <div class="main m-0 p-0">
+            <div class="title">
+                <h1 class="">CHECKOUT</h1>
+            </div>
+            <div class="row m-0">
+               <div class="col-md-5 p-1">
+                  <div class="card">
+                     <div class="card-header">
+                        <div class="row d-flex m-0 p-0">
+                           <div class="col-lg-12 p-0">
+                              <div class="pull-left">
+                                    <p class="text-left m-0"><b>DELIVERY ADDRESS</b></p>
+                              </div>
+                              <!-- {{deliveryAddress|json}} -->
+                              <div class="pull-right _check">
+                                 <label class="container-checkbox"  (change)="onChange($event)"><b>ADD NEW DELIVERY ADDRESS</b>
+                                    <input type="checkbox" checked="checked"  [checked]="_addAddress">
+                                    <span class="checkmark"></span>
+                                  </label>
+                              </div>
+                           </div> 
+                        </div>
+                     </div>
+                     <div class="card-body _addressForm fadeIn" *ngIf="_addAddress">
+                        <form  [formGroup]="form" (ngSubmit)="onSubmit()" >
+                           <div class="row kyc-form">
+                             <div class="card _card_border">
+                               <div class="card-body">
+           
+                                 <div class="row">
+                                   <div class="col-md-6">
+                                    <div class="form-floating mb-4">  
+                                       <input (keydown)="Space($event)" (keypress)="omit_special_char($event)"  type="text" class="form-control" 
+                                          placeholder="Name"  formControlName="username"
+                                             [ngClass]="{'is-invalid': isSubmit && ff['username'].errors }">
+                                          <label for="name">Name*</label>
+                                          <div *ngIf="isSubmit && ff['username'].errors" class="invalid-feedback">
+                                             <small *ngIf="ff['username'].errors?.['required']">Name is required</small>
+                                          </div> 
+                                       </div>
+                                   </div>
+                                   <div class="col-md-6">
+                                     <div class="form-floating mb-4">  
+           
+                                       <input  appIntegerOnly  (keydown)="Space($event)"  (keypress)="omit_special_char($event)" type="number" class="form-control" 
+                                         placeholder="SubCategory Name"  formControlName="contactNumber"
+                                             [ngClass]="{'is-invalid': isSubmit && ff['contactNumber'].errors }"
+                                             >
+                                       <label for="name">Contact Number*</label>
+                                       <div *ngIf="isSubmit && ff['contactNumber'].errors" class="invalid-feedback">
+                                          <small *ngIf="ff['contactNumber'].errors?.['required']">Enter your Contact Number</small>
+                                          <small *ngIf="ff['contactNumber'].errors?.['pattern']">Invalid Contact Number (Enter 10 digit Mobile No.)</small>
+   
+                                       </div> 
+                                     </div>
+                                    
+                                   </div>
+                                 </div>
+                                 <div class="row">
+                               
+                                   <div class="col-md-6">
+                                       <div class="form-floating mb-4">  
+                                             <input type="text" (keydown)="Space($event)" class="form-control" 
+                                             placeholder="Address Line 1"  formControlName="addressLine1"
+                                                [ngClass]="{'is-invalid': isSubmit && ff['addressLine1'].errors }">
+                                          <label for="name">Address Line 1*</label>
+                                          <div *ngIf="isSubmit && ff['addressLine1'].errors" class="invalid-feedback">
+                                             <small *ngIf="ff['addressLine1'].errors?.['required']">Enter Address Line 1</small>
+                                          </div> 
+                                       </div>
+                                   </div>
+                                   <div class="col-md-6">
+                                     <div class="form-floating mb-4">  
+           
+                                       <input type="text"(keydown)="Space($event)" class="form-control" 
+                                         placeholder="Address Line 2"  formControlName="addressLine2"
+                                             [ngClass]="{'is-invalid': isSubmit && ff['addressLine2'].errors }">
+                                       <label for="name">Address Line 2*</label>
+                                       <div *ngIf="isSubmit && ff['addressLine2'].errors" class="invalid-feedback">
+                                         <small *ngIf="ff['addressLine2'].errors?.['required']">Enter Address Line 2</small>
+                                       </div> 
+                                   
+                                     </div>
+                                   </div>
+               
+                                 </div>
+                                 <div class="row">
+                                    <div class="col-md-6">
+                                       <div class="form-floating mb-4">  
+
+                                          <input type="text" (keydown)="Space($event)" class="form-control" 
+                                            placeholder="State"  formControlName="state"
+                                                [ngClass]="{'is-invalid': isSubmit && ff['state'].errors }">
+                                          <label for="name">State*</label>
+                                          <div *ngIf="isSubmit && ff['state'].errors" class="invalid-feedback">
+                                            <small *ngIf="ff['state'].errors?.['required']">Enter your State</small>
+                                          </div> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                       <div class="form-floating mb-4">  
+
+                                          <input type="text" (keydown)="Space($event)" class="form-control" 
+                                            placeholder="Landmark"  formControlName="landmark">
+                                          <label for="name">Landmark</label>
+                                          <!-- <div *ngIf="isSubmit && ff['landmark'].errors" class="invalid-feedback">
+                                            <small *ngIf="ff['landmark'].errors?.['required']">Enter your State</small>
+                                          </div>  -->
+                                        </div>
+                                    </div>
+                                 </div>
+           
+                                 <div class="row">
+        
+                                   <div class="col-md-6">
+                                     <div class="form-floating mb-4">  
+                                           <select class="form-control" formControlName="city"  (change)="getPINCODE()" 
+                                           [ngClass]="{'is-invalid': isSubmit && ff['city'].errors }">
+                                             <option disabled value="">Select City</option>
+                                             <option *ngFor="let data of cities" [value]="data">
+                                               {{ data }}
+                                             </option>
+                                           </select>
+                                           <label for="name">City*</label>
+                                           <div *ngIf="isSubmit && ff['city'].errors" class="invalid-feedback">
+                                             <small *ngIf="ff['city'].errors?.['required']">Enter your City</small>
+                                           </div> 
+                                     </div>
+                                   </div>
+                                   <div class="col-md-6">
+                                     <div class="form-floating mb-4">  
+                                         <select class="form-control" formControlName="pincode" [ngClass]="{'is-invalid': isSubmit && ff['pincode'].errors }">
+                                           <option disabled value="">Select PINCODE</option>
+                                           <option *ngFor="let data of pincode" [value]="data">
+                                             {{ data }}
+                                           </option>
+                                         </select>
+                                         <label for="name">PINCODE*</label>
+                                         <div *ngIf="isSubmit && ff['pincode'].errors" class="invalid-feedback">
+                                           <small *ngIf="ff['pincode'].errors?.['required']">Enter your PINCODE</small>
+                                         </div> 
+                                     </div>
+                                   </div>
+                                 </div>
+                               </div>
+                               <div class="row">
+
+                                 <div class="d-flex justify-content-end">
+                                   <div class="btn-group pull-right p-2">
+                                     <button pButton type="submit" class="checkout-button"
+                                     iconPos="left" 
+                                     label="Save address">  </button>
+                                   </div>
+                                </div>
+                                      
+                               </div>
+                             </div>
+                           </div>
+                  
+           
+                         </form>   
+
+                        
+                     </div>
+                  
+
+                     <div class="card slide _billing" *ngFor="let data of deliveryAddress" (click)="selectDelieveryAddress(data)"
+                     [ngStyle]="{'border': data._id===_delivery_id ? '2px solid #8fae1b' : '2px solid #FEF8EB' }">
+
+                     <h4>{{data.username|uppercase}}</h4>
+                     <div class="d-flex flex-row">
+                        <p><small class="tax_label">Address:  </small> </p>
+                        <div class="">
+                           <p>&nbsp;{{data.addressLine1}}  <small class="landmark" *ngIf="data.landmark">({{data.landmark}})</small>,  {{data.addressLine2}} , {{data.city}},  {{data.state}} - {{data.pincode}} </p>
+                          
+                        </div>
+                     </div>
+                     <p><small class="tax_label">Mobile No. : </small> {{data.contactNumber}}</p>
+                            
+                    
+                     </div>
+                  </div>
+
+               </div>
+               <div class="col-md-7 p-1">
+                  <div class="card mb-1">
+                     <div class="card-header">
+                        <div class="d-flex align-items-center justify-content-between">
+                           <p class="text-left m-0"><b>BILLING ADDRESS</b></p>
+                        </div>
+                     </div>
+                    <!-- <pre> {{billingAddress|json}}</pre> -->
+                     <div class="card-body _billing" *ngIf="billingAddress">
+                        <h3><strong> {{billingAddress.username|uppercase}} </strong> </h3>
+                        <p><small class="tax_label">Trade Name : </small> {{billingAddress.tradeName}} </p>
+                        <p><small class="tax_label">GST No. : </small> {{billingAddress.gstno}}</p>
+                        <div class="d-flex flex-row">
+                           <p><small class="tax_label">Address :</small> </p>
+                           <div class="">
+                              <p>{{billingAddress.addressLine1}},  {{billingAddress.addressLine2}}, {{billingAddress.city}},  {{billingAddress.state}} - {{billingAddress.pincode}}</p>
+                           
+                           </div>
+                         </div>
+                         <p><small class="tax_label">Email : </small> {{billingAddress.email}}</p>
+                         <p><small class="tax_label">Mobile No. : </small> {{billingAddress.contactNumber}}</p>
+                     </div>
+                     
+                  </div>
+
+                  <div class="card">
+                     <div class="card-header">
+                        <div class="d-flex align-items-center justify-content-between">
+                           <p class="text-left m-0"><b>YOUR ORDER</b></p>
+                        </div>
+                     </div>
+
+                    <!-- <pre> {{billingAddress|json}}</pre> -->
+                     <div class="card-body slide _products" *ngIf="billingAddress">
+                        <table class="table custom-class">
+                           <thead>
+                              <tr>
+                                 <th></th>
+                                 <th>PRODUCT</th>
+                                 <th class="text-end">SUB TOTAL</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr *ngFor="let data of cartLists ;let i=index">
+                                 <td class="text-center">{{i+1}}</td>
+                                 <td>
+                                    <div class="my-auto">
+                                       <h3>{{data.productDetails.productName}}</h3>
+                                       <p><small class="tax_label">Qty: </small>{{data.quantity}}</p>
+
+                                   
+                                    </div>
+                                 </td>
+                                 <td class="text-end">
+                                    <div><span class="amount"> {{data.totalPriceWithGST |currency:'INR'}}</span> <small class="tax_label"> (incl. GST)</small></div>
+                                 </td>
+                              </tr>
+                           </tbody>
+
+                        </table>
+                        <div class="p-3 empty text-center" *ngIf="cartLists.length==0">Your Cart is currently empty</div>
+
+                        <div class="row d-flex m-0 p-0  total-cart"  *ngIf="cartLists.length>0">
+                           <div class="col-lg-12">
+                              <div class="pull-left">
+                                   <p><b>Sub Total</b></p>
+                              </div>
+                                          
+                              <div class="pull-right">
+                               <div><span class="_amount"> {{subTotal_withGST |currency:'INR'}}</span> <small class="tax_label"> (incl. GST)</small></div> 
+
+                              </div>
+                           </div> 
+                      
+                           <label class="container-checkbox"  (change)="onChange($event)">
+                             <input type="checkbox" checked="checked"  [checked]="_addAddress">
+                            </label>
+                            
+                            <div class="p-2">
+                              <form [formGroup] = "textAreaForm"  (ngSubmit)="placeOrder()" >
+                                 <div class="row d-flex">
+                                    <div class="col-md-3 m-2">
+                                       <div class="row"><small>Preferred Delivery Date :</small></div>
+                                          <input
+                                             [(ngModel)]="selectedDate"
+                                             [ngClass]="{'is-invalid': isOrderSubmit && ft['date'].errors }"
+                                             ngbDatepicker
+                                             #dp="ngbDatepicker"
+                                             [minDate]="minDate"
+                                             formControlName="date"
+                                             (click)="dp.toggle()"
+                                             [displayMonths]="1" 
+                                             (ngModelChange)="onChangeDate($event)"
+                                             placeholder="Choose Date"
+                                             class="custom-input "/>
+                                             <div *ngIf="isOrderSubmit && ft['date'].errors" class="invalid-feedback">
+                                                <small *ngIf="ft['date'].errors?.['required']">Date is required</small>
+                                             </div> 
+                                    </div>
+
+                                    <div class="col-md-3 p-2">
+                                       <div class="row"><small>Preferred Time Slot :</small></div>
+                                       <select class="form-control" formControlName="time"   [ngClass]="{'is-invalid': isOrderSubmit && ft['time'].errors }">
+                                          <option disabled value="">Select Time Slot</option>
+                                          <option *ngFor="let data of timeSlot;let i=index" [value]="data">{{ data }}</option>
+                                       </select>
+                                       <div *ngIf="isOrderSubmit && ft['time'].errors" class="invalid-feedback">
+                                          <small *ngIf="ft['time'].errors?.['required']">Time Slot is required</small>
+                                       </div> 
+      
+                                    </div>
+                                 </div>
+                                 <!-- <div class="">
+                                    <ngb-timepicker 
+                                    [ngClass]="{'is-invalid': isOrderSubmit && ft['time'].errors }"
+                                    [(ngModel)]="selectedTime"    formControlName="time" (ngModelChange)="onTimeChange($event)"></ngb-timepicker>
+   
+                                    <div *ngIf="isOrderSubmit && ft['time'].errors" class="invalid-feedback">
+                                       <small *ngIf="ft['time'].errors?.['required']">Time is required</small>
+                                    </div> 
+                                 </div> -->
+                            
+                                 <!-- <material-timepicker color="primary" label="Hour 2" appearance="standard" [userTime]="exportTime"></material-timepicker>  -->
+                                 
+                                 <div class="pull-left _check p-2">
+                                    <label class="container-checkbox">
+                                       <span>
+                                          I have read and agree to the website 
+                                          <a (click)="OpenTerms(termsModal)" class="" target="_blank">terms and conditions</a><span class="required">*</span></span>
+         
+                                       <input type="checkbox" checked="checked"  [checked]="_addAddress" formControlName="terms">
+                                       <span class="checkmark"></span>
+                                     </label>
+                                 </div>
+                                 <textarea cols="64" rows = "5" class ="p-2" formControlName="remarks" placeholder="Enter Remarks"></textarea>
+                              
+                                 <div class="proceed-to-checkout">
+                                    <button type="submit" class="form-control checkout-button">
+                                      <b>PLACE ORDER</b></button>
+                                 </div>
+                              </form>
+                            </div>
+
+                        </div>
+                    </div>
+                  </div>
+               </div>
+
+
+             
+            </div>
+    
+       </div>
+       <!-- <div #paymentRef></div> -->
+    </section>
+</main> 
+  
+<ng-template #termsModal let-modal>
+   <div class="modal-header p-2 m-0">
+      <div class="row d-flex p-0">
+         <div class="col-md-2 text-end my-auto">
+            <i class="lnr lnr-cross icon" (click)="modal.dismiss('Cross click')"></i>
+         </div>
+      </div>
+   </div>
+   <div class="modal-body w-100 p-2">
+      <div class="wpb_wrapper">
+         <div class="content">
+            <div class="text-center">
+               <strong>TERMS AND CONDITIONS</strong>
+            </div>
+            <div class="vc_toggle_content">
+               <div class="title">
+                  <strong>1. Order Placement and Confirmation:</strong>
+               </div>
+               <div class="mt-3">
+                  <p>Orders can be placed online, by phone, or through our designated sales representatives.</p>
+                  <p class="mt-2">Order confirmation will be sent via email or phone, outlining order details, delivery
+                     schedule, and estimated costs, including the one-point delivery fee if any.</p>
+               </div>
+               <div class="title">
+                  <strong>2. Delivery Information:</strong>
+               </div>
+               <p class="mt-2">Customer is responsible for providing accurate and complete delivery
+                  information, including address, contact details, and clear access details (e.g., gate
+                  width, unloading area).</p>
+               <p class="mt-3">Delivery will be made to a single, designated location mentioned in the order.</p>
+               <p class="mt-3">Delivery timeframe will be communicated during order confirmation and may vary
+                  depending on location, order volume, and availability.</p>
+               <p class="mt-3">Customer is responsible for ensuring the delivery site is accessible for large
+                  trucks and has adequate space for unloading.</p>
+               <div class="title">
+                  <strong>3. Delivery Fees:</strong>
+               </div>
+               <p>The delivery fee for one-point delivery will be clearly communicated during order
+                  confirmation and may include factors like order quantity and delivery distance.</p>
+               <div class="title">
+                  <strong>4. Offloading and Acceptance:</strong>
+               </div>
+               <p class="mt-3">Customer is responsible for offloading the material upon delivery. Depending on
+the quantity and packaging (bags vs. bulk), appropriate manpower or equipment
+may be required. We offer optional offloading services at an additional cost.
+Please inquire for details.</p>
+<p class="mt-3"> Upon delivery, you (the customer) or someone you authorize to receive the order
+must inspect the material and sign the delivery receipt. Alternatively, you can
+confirm delivery receipt through our website or mobile app by logging into your
+account.</p>
+<p class="mt-3"> Signing the receipt or confirming online confirms that you have accepted the
+delivered orders in the good condition, and the one-point delivery location. If we
+don't hear from you within 24 hours of delivery, we'll consider the delivery
+accepted and you won't be able to raise any complaints about the order, product
+condition, or delivery location.</p>
+               <div class="title">
+                  <strong>5. Damage or Discrepancies:</strong>
+               </div>
+               <p class="mt-3"> Any damage to the material or discrepancies in quantity must be reported
+               immediately upon delivery by noting it on the delivery receipt and contacting our
+               customer service team within 24 hours.</p>
+               <p class="mt-3"> We will work promptly to resolve any reported issues.</p>
+               <div class="title">
+                  <strong>6. Cancellations and Changes:</strong>
+               </div>
+               <p class="mt-3"> Order cancellations or changes may be subject to fees depending on the lead time
+               before scheduled delivery.</p>
+               <p class="mt-3">Please contact customer service as soon as possible if you need to modify your
+               order.</p>
+               <div class="title">
+                  <strong>7. Payment Terms:</strong>
+               </div>
+               <p class="mt-3"> Payment for material and the one-point delivery fee is due before or upon delivery,
+               depending on the agreed-upon payment terms.</p>
+               <p class="mt-3"> We accept various payment methods, which will be clearly outlined during the
+               order process.</p>
+               <div class="title">
+                  <strong>8. Disclaimer:</strong>
+               </div>
+               <p class="mt-3"> We reserve the right to modify these terms and conditions at any time without
+               prior notice.</p>
+               <p class="mt-3"> These terms and conditions are subject to all applicable laws and regulations.</p>
+               <div class="title">
+                  <strong>9. Contact Information:</strong>
+               </div>
+               <p class="mt-3">For any questions regarding material delivery, terms and conditions, or to place
+               an order, please contact our customer service team at +91 73 8181 3131 or
+               support@buimat.com.</p>
+               
+            </div>
+            <p>
+               By placing an order with us, you agree to these terms and conditions, including the
+one-point delivery policy.
+            </p>
+         </div>
+      </div>
+   </div>
+</ng-template>

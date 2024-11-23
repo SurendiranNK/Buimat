@@ -1,0 +1,44 @@
+ <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4 m-4">
+    <div *ngFor="let card of groupData" class="max-w-sm rounded overflow-hidden shadow-lg bg-white m-4 p-4">
+      <div class="px-6 py-4">
+        <div class="font-bold text-xl mb-2">{{ card.mst_cat_name }}</div>
+        <ul>
+
+          <li class=""  *ngFor="let data_ of card.products[0].product_details">
+            <label class="container-checkbox">
+               <input type="checkbox" [(ngModel)]="data_.isCheckboxCheck"> {{data_.mst_product_name}}<span class="checkmark"></span>
+            </label>
+          </li>
+       </ul>
+      </div>
+    </div>
+
+    <button class="m-2 btn bu-btn-blue bu-btn-login" (click)="showselectedProducts()">Show Selected Products</button>
+
+
+    <div class="px-12 mb-20">
+      <div class="card">
+        <div *ngFor="let card of selectedData" class="mx-4 mb-0 p-2">
+          <div class="px-4w py-1">
+            <div class="font-bold text-xl mb-2">{{ card.mst_cat_name }}</div>
+            <ul class="m-0">
+              <li class=""  *ngFor="let data_ of card.products[0].product_details">
+                <label class="container-checkbox"> {{data_.mst_product_name}}
+                   <!-- <input type="checkbox" [(ngModel)]="data_.isCheckboxCheck"> {{data_.mst_product_name}}<span class="checkmark"></span> -->
+                </label>
+              </li>
+           </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+
+
+  </div> 
+
+
+
+  <pre>{{selectedData|json}}</pre>
+
+  <pre>{{groupData|json}}</pre>

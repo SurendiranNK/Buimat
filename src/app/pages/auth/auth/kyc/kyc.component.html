@@ -1,0 +1,321 @@
+<div class="bu-logged-in">
+  <header class="bu-header-section site-header">
+    <div class="top-menu">
+      <div class="container m-0">
+        <div class="row header-row">
+          <div class="header-logo col-md-3 col-sm-3">
+            <a>
+              <img class="site-logo p-2" alt="Buimat" 
+              src="../../../../../assets/img/favicon/buimat.png"/>
+            </a>          
+          </div>
+        </div>
+      </div>
+    </div>    
+  </header>
+  <main>
+    <section >
+      <div class="row m-0 p-2 ">
+        <div class="container-fluid">     
+              <form  [formGroup]="form" (ngSubmit)="onSubmit()" >
+                <div class="row kyc-form">
+                  <div class="card">
+                    <div class=" card-header"><h5 class="m-0"><b>KYC FORM</b></h5>
+                      <p class="m-0">Please complete your KYC to become a registered user</p>
+                    </div>
+                    <div class="card-body">
+                      <!-- <pre>{{this.form.value | json}}</pre> -->
+
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="form-floating mb-4">  
+
+                            <input type="email" class="form-control" 
+                              placeholder="Email ID"  formControlName="email"
+                                  [ngClass]="{'is-invalid': isSubmit && ff['email'].errors }">
+                            <label for="name">Email ID(*)</label>
+                            <div *ngIf="isSubmit && ff['email'].errors" class="invalid-feedback">
+                              <small *ngIf="ff['email'].errors?.['required']">Email ID is required</small>
+                              <small *ngIf="ff['email'].errors?.['pattern']" class="text-danger">Please provide a valid email address</small>
+
+                            </div> 
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-floating mb-4">  
+
+                            <input  (keypress)="omit_special_char($event)" type="text" class="form-control" 
+                              placeholder="SubCategory Name"  formControlName="mobileNo" [readonly]="!editable"
+                                  [ngClass]="{'is-invalid': isSubmit && ff['mobileNo'].errors }"
+                                  >
+                            <label for="name">Mobile Number(*)</label>
+                          </div>
+                        </div>
+
+
+                        <div class="col-md-3">
+                          <div class="form-floating mb-4">  
+
+                            <input  [value]="inputText" (keypress)="omit_special_char($event)" (input)="convertToUppercase($event)"  type="text" maxlength="15" class="form-control" 
+                              placeholder="GST Number"  formControlName="gstNo"
+                                  [ngClass]="{'is-invalid': isSubmit && ff['gstNo'].errors }">
+                            <label for="name">GST Number(*)</label>
+                            <div *ngIf="isSubmit && ff['gstNo'].errors" class="invalid-feedback">
+                              <small *ngIf="ff['gstNo'].errors?.['required']">GST Number is required</small>
+                              <small *ngIf="ff['gstNo'].errors?.['pattern']">Invalid GST Number</small>
+                            </div> 
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-floating mb-4">  
+
+                            <input  (keypress)="omit_special_char($event)"  type="text" class="form-control" 
+                              placeholder="Trade Name"  formControlName="tradeName"
+                                  [ngClass]="{'is-invalid': isSubmit && ff['tradeName'].errors }">
+                            <label for="name">Trade Name(*)</label>
+                            <div *ngIf="isSubmit && ff['tradeName'].errors" class="invalid-feedback">
+                              <small *ngIf="ff['tradeName'].errors?.['required']">Trade Name is required</small>
+                            </div> 
+                            <small class="password m-0"> <i>Note: Trade Name should get match with GST No.</i></small>
+
+                          </div>
+                        
+                        </div>
+                        
+                      </div>
+                      <div class="row">
+                    
+                  
+                        <div class="col-md-3">
+                          <div class="form-floating mb-4">  
+
+                            <input type="text" class="form-control" 
+                              placeholder="Address Line 1"  formControlName="addressLine1"
+                                  [ngClass]="{'is-invalid': isSubmit && ff['addressLine1'].errors }">
+                            <label for="name">Address Line 1(*)</label>
+                            <div *ngIf="isSubmit && ff['addressLine1'].errors" class="invalid-feedback">
+                              <small *ngIf="ff['addressLine1'].errors?.['required']">Enter Address Line 1</small>
+                            </div> 
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-floating mb-4">  
+
+                            <input type="text" class="form-control" 
+                              placeholder="Address Line 2"  formControlName="addressLine2"
+                                  [ngClass]="{'is-invalid': isSubmit && ff['addressLine2'].errors }">
+                            <label for="name">Address Line 2(*)</label>
+                            <div *ngIf="isSubmit && ff['addressLine2'].errors" class="invalid-feedback">
+                              <small *ngIf="ff['addressLine2'].errors?.['required']">Enter Address Line 2</small>
+                            </div> 
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-floating mb-4">  
+
+                            <input type="text" class="form-control" 
+                              placeholder="State"  formControlName="state"
+                                  [ngClass]="{'is-invalid': isSubmit && ff['state'].errors }">
+                            <label for="name">State(*)</label>
+                            <div *ngIf="isSubmit && ff['state'].errors" class="invalid-feedback">
+                              <small *ngIf="ff['state'].errors?.['required']">Enter your State</small>
+                            </div> 
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-floating mb-4">  
+                                <select class="form-control" formControlName="city"  (change)="getPINCODE()" 
+                                [ngClass]="{'is-invalid': isSubmit && ff['city'].errors }">
+                                  <option disabled value="">Select City</option>
+                                  <option *ngFor="let data of cities" [value]="data">
+                                    {{ data }}
+                                  </option>
+                                </select>
+                                <label for="name">City(*)</label>
+                                <div *ngIf="isSubmit && ff['city'].errors" class="invalid-feedback">
+                                  <small *ngIf="ff['city'].errors?.['required']">Enter your City</small>
+                                </div> 
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                      
+                        <div class="col-md-3">
+                          <div class="form-floating mb-4">  
+                              <select class="form-control" formControlName="pincode" [ngClass]="{'is-invalid': isSubmit && ff['pincode'].errors }">
+                                <option disabled value="">Select PINCODE</option>
+                                <option *ngFor="let data of pincode" [value]="data">
+                                  {{ data }}
+                                </option>
+                              </select>
+                              <label for="name">PINCODE(*)</label>
+                              <div *ngIf="isSubmit && ff['pincode'].errors" class="invalid-feedback">
+                                <small *ngIf="ff['pincode'].errors?.['required']">Enter your PINCODE</small>                                <small *ngIf="ff['pincode'].errors?.['required']">Enter your PINCODE</small>
+                                <small *ngIf="ff['pincode'].errors?.['pattern']">Invalid PINCODE</small>
+
+                              </div> 
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="row">
+                            <small class="password"> <i>Note : The password must have atleast 8 characters</i></small>
+                            <div class="col-md-6">
+                            
+                                  <div class="input-group mb-4">
+                                      <input  [type]="fieldTextType_password ? 'text' : 'password'" class="form-control" 
+                                        placeholder="Password"  formControlName="password"
+                                            [ngClass]="{'is-invalid': isSubmit && ff['password'].errors }">
+                                      <div class="input-group-append">
+                                        <span class="input-group-text">
+                                          <i class="pi p-1" [ngClass]="{
+                                            'pi-eye-slash': !fieldTextType_password,
+                                            'pi-eye': fieldTextType_password
+                                          }"
+                                          (click)="toggle_password()"></i>
+                                        </span>
+                                      </div>
+                                      <div *ngIf="isSubmit && ff['password'].errors" class="invalid-feedback">
+                                        <small *ngIf="ff['password'].errors?.['required']">Password is required</small>
+                                        <small *ngIf="ff['password'].errors?.['minlength']">Password must be at least 8 characters</small>
+                                      </div> 
+
+                                  </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="input-group mb-4">
+                                <input  [type]="fieldTextType_cPassword ? 'text' : 'password'" class="form-control" 
+                                  placeholder="Confirm Password"  formControlName="confirmPassword"
+                                      [ngClass]="{'is-invalid': isSubmit && ff['confirmPassword'].errors }">
+                                <div class="input-group-append">
+                                  <span class="input-group-text">
+                                    <i class="pi p-1" [ngClass]="{
+                                      'pi-eye-slash': !fieldTextType_cPassword,
+                                      'pi-eye': fieldTextType_cPassword
+                                    }"
+                                    (click)="toggle_confirm_password()"></i>
+                                  </span>
+                                </div>
+                                <div *ngIf="isSubmit && ff['confirmPassword'].errors" class="invalid-feedback">
+                                  <small *ngIf="ff['confirmPassword'].errors?.['required']">Confirm Password is required</small>
+                                  <small *ngIf="ff['confirmPassword'].errors?.confirmedValidator">Password and Confirm Password are not matching</small>
+  
+                                </div> 
+
+                            </div>
+                              <!-- <div class="form-floating mb-4">  
+    
+                                <input type="password" class="form-control" 
+                                    placeholder="Password"  formControlName="confirmPassword"
+                                        [ngClass]="{'is-invalid': isSubmit && ff['confirmPassword'].errors }">
+                                  <label for="name">Confirm Password</label>
+                                  <div *ngIf="isSubmit && ff['confirmPassword'].errors" class="invalid-feedback">
+                                    <small *ngIf="ff['confirmPassword'].errors?.['required']">Confirm Password is required</small>
+                                    <small *ngIf="ff['confirmPassword'].errors?.confirmedValidator">Password and Confirm Password are not matching</small>
+    
+                                  </div> 
+                              </div> -->
+                            </div>
+    
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-4">
+                    <div class="card">
+                      <div class=" card-header"><h5 class=" h3 mb-0">AADHAR</h5></div>
+                      <div class="card-body">
+                        <input 
+                          #aadhar 
+                          id="aadhar" 
+                          type="file" 
+                          accept="image/*" 
+                          class="form-control"
+                          (change)="onFileChange($event,0)"
+                          [ngClass]="{'is-invalid': isSubmit && ff['aadhar'].errors }">
+                          <div *ngIf="isSubmit && ff['aadhar'].errors" class="invalid-feedback">
+                            <small *ngIf="ff['aadhar'].errors?.['required']">AADHAR is required</small>
+                          </div>
+
+                            <div class="col-sm-12">
+                              <div class="image-area mt-2 ml-3">
+                                <img id="imageResult" [src]="aadhar_"  alt="" class="w-75 img-fluid rounded shadow-sm mx-auto d-block" >
+                              </div>
+                            </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-4 card">
+                    <div class="card">
+
+                      <div class=" card-header"><h5 class=" h3 mb-0">PAN </h5></div>
+                      <div class="card-body">
+                        <input 
+                          #pan 
+                          id="pan" 
+                          type="file" 
+                          accept="image/*"
+                          class="form-control"
+                          (change)="onFileChange($event,1)"
+                          [ngClass]="{'is-invalid': isSubmit && ff['pan'].errors }">
+                          <div *ngIf="isSubmit && ff['pan'].errors" class="invalid-feedback">
+                            <small *ngIf="ff['pan'].errors?.['required']">PAN is required</small>
+                          </div>
+
+                            <div class="col-sm-12">
+                              <div class="image-area mt-2 ml-3">
+                                <img id="imageResult" [src]="pan_"  alt="" class="w-75 img-fluid rounded shadow-sm mx-auto d-block" >
+                              </div>
+                            </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-4">
+                    <div class="card">
+                      <div class=" card-header"><h5 class=" h3 mb-0">SHOP PROOF</h5></div>
+                      <div class="card-body">
+                        <input 
+                          #aadhar 
+                          id="aadhar" 
+                          type="file" 
+                          accept="image/*"
+                          class="form-control"
+                          (change)="onFileChange($event,2)">
+                          <!-- <div *ngIf="isSubmit && ff['shopProof'].errors" class="invalid-feedback">
+                            <div *ngIf="ff['shopProof'].errors?.['required']">Bran is required</div>
+                          </div> -->
+  
+                            <div class="col-sm-12">
+                              <div class="image-area mt-2 ml-3">
+                                <img id="imageResult" [src]="shopProof_"  alt="" class="w-75 img-fluid rounded shadow-sm mx-auto d-block" >
+                              </div>
+                            </div>
+                        
+                      </div>
+                    </div>
+         
+                  </div>
+                  <div class="d-flex justify-content-end">
+                        <div class="btn-group pull-right p-2">
+                          <button type="submit" class="btn bu-btn-blue"> Submit</button>                    
+                        </div>
+                 </div>
+                       
+                </div>
+
+              </form>   
+
+        </div>
+
+     </div>
+    </section>
+  </main>
+
+
+</div>

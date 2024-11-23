@@ -1,0 +1,243 @@
+<main>
+   <section class="">
+      <div class="page-header page-header-catalog">
+         <div class="page-breadcrumbs">
+            <div class="martfury-container">
+               <ul class="breadcrumbs">
+                  <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                     <a class="home"  href="/home" itemprop="item"><span itemprop="name">Home </span></a>
+                  </li>
+                  <span class="sep">/</span>
+                  <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                     <span itemprop="item"><span itemprop="name">Shop</span></span>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <!-- {{_productPricing|json}} -->
+      <div id="content" class="site-content" *ngIf="productDetails">
+         <div class="row m-0 p-0">
+            <div class="col-md-4 text-center">
+               <div class="main-image">
+                  <img class="card slide img-fluid text-center p-2 mt-4"  alt=""
+                     onerror="this.src='/assets/img/favicon/favicon.svg'" src="{{_selected_image}}"> 
+               </div>
+               <div class="d-flex thumbnail">
+                  <div class="col-3 m-0 p-1" *ngFor='let url of productDetails!.product!.image!' (click)="showImage(url)">
+                  <img class="card slide img-fluid text-center image-class p-1"  alt=""
+                     onerror="this.src='/assets/img/favicon/favicon.svg'" src="{{url}}"> 
+               </div>
+            </div>
+           </div>
+         <!-- {{productDetails|json}} -->
+         <div class="col-md-5 product-info">
+            <div class="mf-entry-product-header">
+               <p class="product_title">{{productDetails.product.productName | uppercase}}</p>
+               <ul class="entry-meta">
+                  <li class="meta-brand" *ngIf="productDetails.product.category">
+                     Category: <a class="meta-value"><b>{{productDetails.product.category.categoryName}}</b></a>
+                  </li>
+               </ul>
+               <ul class="entry-meta">
+                  <li class="meta-brand" *ngIf="productDetails.product.brand">
+                     Brand: <a  class="meta-value"><b>{{productDetails.product.brand.brandName}}</b></a>
+                  </li>
+               </ul>
+               <ul class="entry-meta">
+                  
+                  <li class="meta-brand _brandLink" *ngIf="productDetails.product.brand && productDetails.product.brand.url !==''">
+                     <a  (click)="openStore(productDetails.product.brand.url)" class="meta-value"><small>Visit the {{productDetails.product.brand.brandName}} Store</small></a>
+                  </li>
+               </ul>
+               <!-- {{productDetails|json}} -->
+               <!-- <ul class="entry-meta">
+                  <li class="meta-brand" *ngIf="productDetails.product.brand">
+                     Brand: <a  class="meta-value">{{productDetails.product.brand.brandName}}</a>
+                  </li>
+               </ul> -->
+            </div>
+            <dd><span class="amount final">
+               <span class="woocommerce-Price-amount amount"><bdi>
+               <!-- <span class="woocommerce-Price-currencySymbol">₹</span> -->
+                  {{(_is_Alt_Pricing?_baseprice_a_priceWithOutGST:_baseprice_p_priceWithOutGST)|currency:'INR'}}
+                  
+                   </bdi></span></span>  
+                   <span class="incl">Ex. GST</span>
+               <span class="dash">| </span>
+               <span class="amount final"> 
+               <span class="woocommerce-Price-amount amount"><bdi>
+                  <!-- <span class="woocommerce-Price-currencySymbol">₹</span> -->
+                  {{(_is_Alt_Pricing?_baseprice_a_priceWithGST:_baseprice_p_priceWithGST)|currency:'INR'}}
+                  <!-- {{_productPricing.priceWithGST}} -->
+                  </bdi></span></span>
+                  <span class="incl">Incl. GST</span>
+            </dd>
+
+            <label class="toggleSwitch nolabel"  *ngIf="!_isPrimaryPricing">
+                <input type="checkbox" [checked]="_is_Alt_Pricing" (change)="onChange($event)"/>
+                <a></a>
+               <span> 
+                     <span class="left-span">{{_productPricing!.primaryUnit.formatName}} ({{_productPricing!.primaryUnit.symbolToBeDisplayed}})&nbsp;</span>
+                     <span class="right-span" >{{_productPricing!.alternateUnit.formatName}} ({{_productPricing!.alternateUnit.symbolToBeDisplayed}})&nbsp;</span>
+               </span>											
+            </label>
+           <ul class="entry-meta" *ngIf="_isPrimaryPricing" >
+            <li class="meta-brand" *ngIf="productDetails.product.brand">
+               Unit : <b>
+                  <span class="left-span">{{_productPricing!.primaryUnit.formatName}} ({{_productPricing!.primaryUnit.symbolToBeDisplayed}})&nbsp;</span>
+
+               </b>
+            </li>
+         </ul>
+
+            
+            
+            <div class="mf-summary-header mt-1">
+               <div class="mf-summary-meta">
+                  <p class="stock in-stock"><label>Status:</label>In stock</p>
+               </div>
+            </div>
+            <div class="mf-summary-header m-0">
+               <div class="mf-summary-meta m-0">
+                  <p class="deliverytime"><label>Delivery Time : </label><b> {{productDetails.product.deliveryTime}}</b></p>
+               </div>
+            </div>
+            <div class="short-description">
+               <p>{{productDetails.product.description}}</p>
+            </div>
+
+            <div class="card"  *ngIf="isEmpty(productDetails.product.options)>0">
+               <div class="card-header">
+                  <p class="m-0 font14">PRODUCT OPTIONS </p>
+               </div>
+               <div class="card-body">
+                  <ul class="entry-meta"  *ngFor="let item of productDetails.product.options | keyvalue">
+                     <li class="meta-brand">
+                        <span>{{item.key}} : </span><a  class="meta-value">{{item.value}}</a>
+                     </li>
+                  </ul>
+                  <!-- <small class="text-muted" *ngIf="isEmpty(productDetails.product.options)==0">No Option available</small> -->
+               </div>
+            </div>
+            <div class="clear"></div>
+            <div class="mt-3" *ngIf="_is_VariablePricing">
+               <h3>Buy More Save More</h3>
+               <table class="shop_table tiered-pricing-table w-100">
+                  <thead>
+                     <tr>
+                        <th> <span class="nobr">Quantity</span></th>
+                        <th> <span class="nobr">Discount (%)</span> </th>
+                        <th> <span class="nobr">Price</span></th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr class="" *ngFor="let data of _variablePricingLists"
+                          [ngStyle]="{'background': checkValue(data.from,data.to,quantity)? '#33CF33' : '#FFFFFF' }">
+                        <td><span> {{data.from}} - {{data.to}}	</span></td>
+                        <td> — </td>
+                        <td>
+                           <span class="_varPrice">
+                           <bdi [ngStyle]="{'color': checkValue(data.from,data.to,quantity)? '#FFFFFF' : '#fa832a' }">
+                           <span>₹</span>
+                               {{data.price}}
+                           </bdi>
+                           </span>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="tc-final-price-total ">
+               <dl class="tc-final-price-totals">
+                  <dt>Final total:</dt>
+                  <dd>
+                     <span class="amount final">
+                     <span class="woocommerce-Price-amount amount">
+                     <bdi> {{(_is_Alt_Pricing?_a_priceWithGST:_p_priceWithGST)|currency:'INR'}}</bdi>
+                     </span>
+                     </span>  
+                     <span class="incl">Incl. GST</span>
+                     <!-- <span class="dash">| </span>
+                     <span class="amount final"> 
+                     <span class="woocommerce-Price-amount amount">
+                     <bdi>
+                     {{_is_Alt_Pricing?_a_priceWithOutGST:_p_priceWithOutGST}}</bdi></span></span> 
+                     <span class="incl">Ex. GST</span>-->
+                  </dd>
+               </dl>
+            </div>
+               <!-- <pre>{{_productPricing|json}}</pre>
+               <pre>{{productDetails|json}}</pre> -->
+            <div class="d-flex bd-highlight mb-3">
+               <div class="bd-highlight">
+                  <label class="label"><small>Quantity</small></label>
+                  <div class="qty-container">
+                     <button class="qty-btn-minus btn-cornered"  type="button" (click)="handleMinus()"><i class="pi pi-minus"></i></button>
+                     <input appNumericInput type="number" name="qty" value="0" class="input-qty input-cornered"  [(ngModel)]="quantity" (change)="onNumberInputChange($event)"/>
+                     <button class="qty-btn-plus btn-cornered" type="button" (click)="handlePlus()"><i class="pi pi-plus"></i></button>
+                  </div>
+                  <label class="minQty"><small><b>Min. Quantity : {{minimumQuantity}}</b></small></label>
+               </div>
+              
+               <div class="addCart my-auto" (click)="addtoCart()" *ngIf="!isAddedtoCart && !isCartUpdate">
+                  <button pButton type="button" class="btnCart"
+                     label="Add to Cart">  </button>
+               </div>
+               <div class="addCart my-auto" (click)="addtoCart()"*ngIf="isAddedtoCart && isCartUpdate ">
+                           <button pButton type="button" class="btnCart"
+                     label="Update Cart">  </button>
+               </div>
+               <div class="addCart my-auto" (click)="removefromCart()" *ngIf="isAddedtoCart && !isCartUpdate">
+                  <button pButton type="button" class="btnRemove"
+                     label="Remove from Cart">  </button>
+               </div>
+               <div class="my-auto p-2">
+                  <i class="pi pi-heart btn-circle" *ngIf="!isFavourite" style="font-size:2rem;" (click)="addtoFavourite()"></i>
+                  <i class="pi pi-heart-fill btn-circle" *ngIf="isFavourite" style="font-size:2rem;" (click)="addtoFavourite()"></i>
+
+               </div>
+            </div>
+         </div>
+
+         <div class="col-md-3 shipping-info">
+            <ul class="mf-shipping-info">
+               <li><i class="pi pi-globe"></i> Free Shipping </li>
+               <li><i class="pi pi-history"></i>Free 7-day return if eligible, so easy </li>
+               <li><i class="pi pi-money-bill"></i>Supplier give bills for this product.</li>
+               <li><i class="pi pi-credit-card"></i>Pay online or when receiving goods</li>
+            </ul>
+         </div>
+         </div>
+      </div>
+   </section>
+   <section class="bu-product-details"  *ngIf="_similar_productsLists.length>0">
+      <div class="card">
+         <div class="card-header">
+            <!-- <div class="d-flex align-items-center justify-content-between"> -->
+            <p class="related-title">RELATED PRODUCTS</p>
+            <!-- </div> -->
+         </div>
+         <!-- {{_similar_productsLists|json}} -->
+         <div class="card-body">
+            <div class="row">
+               <div class="_products col-xl-5th" *ngFor="let data of _similar_productsLists" (click)="showProductDetails(data)">
+                <div class="card slide">
+                  <div class="img-grid-container">
+                     <img class="img-fluid text-center image-class p-1"  alt=""
+                        onerror="this.src='/assets/img/favicon/favicon.svg'" src="{{data.image[0]}}">
+                  </div>
+                  <div>
+                     <span class="product_price">{{data.zone.price | currency:'INR'}}</span>
+                     <span class="label-mrp"><del>{{data.mrp | currency:'INR'}}</del></span>
+                  </div>
+                  <p class="product_name mb-3">{{data.productName}}</p>
+               </div>
+            </div>
+            
+         </div>
+      </div>
+      </div>
+   </section>
+</main>
+<p-toast></p-toast>

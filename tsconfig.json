@@ -1,0 +1,90 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": false,
+    "noPropertyAccessFromIndexSignature": false,
+    "noImplicitReturns": false,
+    "allowSyntheticDefaultImports": true,
+    "strictPropertyInitialization": false,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "useUnknownInCatchVariables": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule":true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "ES2020",
+    "noUnusedLocals": false,
+    "noImplicitAny": false,
+    "module": "es2020",
+    "lib": [
+      "es2020",
+      "dom",
+      "ES2021.String",
+      "dom.iterable" // <- there you are
+
+    ],
+    "paths": {
+      "@blocks/*": [
+        "src/app/shared/components/blocks/*"
+      ],
+      "@forms/*": [
+        "src/app/shared/components/forms/*"
+      ],
+      "@layouts/*": [
+        "src/app/shared/components/layouts/*"
+      ],
+      "@modals/*": [
+        "src/app/shared/components/modals/*"
+      ],
+      "@enums/*": [
+        "src/app/shared/enums/*"
+      ],
+      "@directives/*": [
+        "src/app/shared/directives/*"
+      ],
+      "@pipes/*": [
+        "src/app/shared/pipes/*"
+      ],
+      "@validators/*": [
+        "src/app/shared/validators/*"
+      ],
+      "@factories/*": [
+        "src/app/shared/factories/*"
+      ],
+      "@guards/*": [
+        "src/app/shared/guards/*"
+      ],
+      "@helpers/*": [
+        "src/app/shared/helpers/*"
+      ],
+      "@models/*": [
+        "src/app/shared/models/*"
+      ],
+      "@interfaces/*": [
+        "src/app/shared/interfaces/*"
+      ],
+      "@services/*": [
+        "src/app/shared/services/*"
+      ],
+      "@env/*": [
+        "src/environments/*"
+      ]
+    },
+    "useDefineForClassFields": false
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

@@ -1,0 +1,7 @@
+<app-progress-bar class="position-fixed w-100" *ngIf="storeService.isLoading$ | async"></app-progress-bar>
+<div class="row g-0">
+  <div class="col d-flex flex-column">
+    <!-- NOTE Content -->
+    <router-outlet></router-outlet>
+  </div>
+</div>

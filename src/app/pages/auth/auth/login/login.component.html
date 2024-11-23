@@ -1,0 +1,112 @@
+<!-- <div class="text-center text-primary mb-4">
+  <div class="h2 fw-normal mb-0">{{ 'WELCOME_TO' | translate }}</div>
+  <div class="h1 fw-bold text-uppercase">{{ appName }}</div>
+  <div class="fw-normal text-black">{{ 'PROJECT_DESC' | translate }}</div>
+</div>
+
+<div class="d-flex justify-content-center">
+  <div class="wrapper">
+
+    <form [formGroup]="formGroup" (ngSubmit)="onClickSubmit()">
+
+      <div class="mb-3">
+        <label for="email" class="form-label text-start w-100">{{ 'EMAIL' | translate }}</label>
+        <input type="email" class="form-control" id="email"
+          formControlName="email"
+          [ngClass]="{ 'is-invalid' : formGroup.controls.email.errors && formGroup.controls.email.touched }">
+        <div class="invalid-feedback" *ngIf="formGroup.controls.email.hasError('required')">
+          {{ 'FIELD_REQUIRED' | translate }}
+        </div>
+        <div class="invalid-feedback" *ngIf="formGroup.controls.email.hasError('email')">
+          {{ 'FIELD_EMAIL' | translate }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label text-start w-100">{{ 'PASSWORD' | translate }}</label>
+        <input type="password" class="form-control" id="password"
+          formControlName="password"
+          [ngClass]="{ 'is-invalid' : formGroup.controls.password.errors && formGroup.controls.password.touched }">
+        <div class="invalid-feedback" *ngIf="formGroup.controls.password.hasError('required')">
+          {{ 'FIELD_REQUIRED' | translate }}
+        </div>
+      </div>
+
+      <div class="text-end mb-3">
+        <a routerLink="/forgot-password" class="">{{ 'FORGOT_YOUR_PWD' | translate }}</a>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary mb-3 px-5" [disabled]="!formGroup.valid">
+          <span class="px-4 d-block">{{ 'SIGN_IN' | translate }}</span>
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div> -->
+
+
+<div class="bu-login-page">
+  <main >
+    <section class="container">
+      
+      <!-- login screen starts -->
+      <div class="d-flex align-items-center justify-content-center vh-100">
+        <div class="bu-form-wrapper">
+          <!-- <a  class="bu-go-backpage">
+            <img  src="../../../../../assets/img/project/back-btn.png">
+          </a> -->
+          <div class="bu-image-maxwrap">
+            <!-- <img src="assets/images/mobile-logo.png" alt=""> -->
+            <a class=""><img alt="" src="../../../../../assets/img/project/logo.svg"></a>
+          
+          </div>
+          
+          <h4 class="text-center"><strong>Welcome to BUIMAT</strong></h4>
+          <form [formGroup]="formGroup"  (ngSubmit)="onClickSubmit()">
+            <div class="form-floating mb-4">  
+                <input type="email" formControlName="email" class="form-control" id="buEmail" 
+                [ngClass]="{ 'is-invalid' : formGroup.controls.email.errors && formGroup.controls.email.touched }" placeholder="name@example.com">
+                <label for="buEmail">Email address</label>
+                <div class="invalid-feedback" *ngIf="formGroup.controls.email.hasError('required')">
+                  {{ 'FIELD_REQUIRED' | translate }}
+                </div>
+                <div class="invalid-feedback" *ngIf="formGroup.controls.email.hasError('email')">
+                  {{ 'FIELD_EMAIL' | translate }}
+                </div>
+            </div>
+            
+
+
+            <div class="form-floating mb-4">  
+
+              <input type="password" class="form-control" id="password"
+                  formControlName="password" placeholder="password"
+                  [ngClass]="{ 'is-invalid' : formGroup.controls.password.errors && formGroup.controls.password.touched }">
+                <label for="name">Password</label>
+                <div class="invalid-feedback" *ngIf="formGroup.controls.password.hasError('required')">
+                {{ 'FIELD_REQUIRED' | translate }}
+              </div>
+            </div>
+            <div id="formFooter">
+              <div class="d-flex m-0 p-0">
+                  <input type="checkbox" id="todo" formControlName="remember" name="todo" value="todo" class="mt-1">
+                  <label class="p-1" for="todo" data-content="Remember me">Remember me</label>
+              </div>
+            </div>
+
+            <div class="text-center">
+              <button type="submit" class="w-100 btn bu-btn-blue mb-2 p-3" [disabled]="!formGroup.valid">
+                <span class="px-4 d-block">{{ 'SIGN_IN' | translate }}</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- login screen ends -->       
+    </section>
+  </main>
+
+
+</div>

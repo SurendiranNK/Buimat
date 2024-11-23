@@ -1,0 +1,30 @@
+
+<ng-container class="">
+    <div class="mt-4 p-4">
+       <div class="max-w-screen-md mx-auto p-2 mb-12">
+          <div class="card_form">
+            <!-- <pre>{{this.myForm.value|json}}</pre> -->
+             <form class="w-1/3 mx-auto" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+                <div class="relative mb-6">
+                    <input [(ngModel)]="product.branch_id" formControlName="branch_id" type="number" id="input-group-1" class="bg-white-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-none" placeholder="Branch ID">
+                 </div>
+                <div class="relative mb-6">
+                   <input [(ngModel)]="product.mst_product_id" formControlName="mst_product_id" type="number" id="input-group-1" class="bg-white-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-none" placeholder="Product ID">
+                </div>
+    
+                 <div class="p-1">
+                    <input  [(ngModel)]="product.is_for_repeat_set_combo" class="form-check-input m-1" type="checkbox"  (change)="onChange($event)" id="isAltPricing" formControlName="is_for_repeat_set_combo">
+                    <label class="form-check-label" for="isAltPricing">
+                           Is for Repeat Set Combo
+                    </label>
+                 </div>
+                 <button class="m-2 btn bu-btn-blue bu-btn-login"  type="submit" >SAVE</button>
+             </form>
+          </div>
+       </div>
+    </div>
+
+
+
+
+ </ng-container>

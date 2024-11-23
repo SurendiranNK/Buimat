@@ -1,0 +1,808 @@
+<main>
+   <section class="bu-section-spacer bu-bggray">
+      <div class="page-header page-header-catalog">
+         <div class="page-breadcrumbs">
+            <div class="martfury-container">
+               <ul class="breadcrumbs">
+                  <li itemprop="itemListElement" itemscope="">
+                     <a class="home"  href="/home" itemprop="item"><span itemprop="name">Home </span></a>
+                  </li>
+                  <span class="sep">/</span>
+                  <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                     <span itemprop="item"><span itemprop="name">My Account</span></span>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="container-fluid main">
+         <div class="row p-1">
+            <div class="title">
+               <h1 class="">MY ACCOUNT</h1>
+            </div>
+            <div class="col-lg-2 d-none d-lg-flex bu-sidebar-wrap p-1">
+               <ul class="nav flex-column d-none d-lg-flex bu-sidebar-item" id="myTab" role="tablist">
+                  <li class="nav-item" role="presentation">
+                     <a class="nav-link active" id="dashboardTab" data-bs-toggle="tab" data-bs-target="#dashboard-tab-pane" type="button" role="tab" aria-controls="dashboard-tab-pane" aria-selected="true">
+                     Dashboard</a>
+                  </li>
+                  <li class="nav-item" role="presentation" >
+                     <a class="nav-link" id="addressTab_" data-bs-toggle="tab" data-bs-target="#addressTabPane" type="button" role="tab" aria-controls="address-tab-pane" aria-selected="false">
+                     Address Book</a>
+                  </li>
+                  <li class="nav-item" role="presentation"   >
+                     <a class="nav-link " id="ordersTab" data-bs-toggle="tab" data-bs-target="#ordersTabPane" type="button" role="tab" aria-controls="orders-tab-pane" aria-selected="false">
+                     My Orders
+                     </a>
+                  </li>
+                  <li class="nav-item" role="presentation"   >
+                     <a class="nav-link " id="paymentTab" data-bs-toggle="tab" data-bs-target="#paymentTabPane" type="button" role="tab" aria-controls="payment-tab-pane" aria-selected="false">
+                        Payment History
+                     </a>
+                  </li>
+                  <li class="nav-item" role="presentation"   >
+                     <a class="nav-link " id="accountsTab" data-bs-toggle="tab" data-bs-target="#accountsTabPane" type="button" role="tab" aria-controls="accounts-tab-pane" aria-selected="false">
+                       ACCOUNT DETAILS
+                     </a>
+                  </li>
+               </ul>
+            </div>
+            <div class="col-xs-12 col-lg-10 bu-account-accordion p-1">
+               <div class="tab-content accordion bu-acn-content" id="myTabContent">
+                  <!------------------- Dashboard----------------->
+                  <div class="tab-pane fade accordion-item show active" id="dashboard-tab-pane" 
+                     role="tabpanel" aria-labelledby="dashboardTab" tabindex="0">
+                     <div class="accordion-body">
+                        <div class="_dashboard">
+                           <p>Hello <b>{{userInfo.username}}</b></p>
+                           <p>From your account dashboard you can view your recent orders, manage your shipping and billing addresses, and edit your password and account details.</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="tab-content accordion bu-acn-content " id="myTabContent">
+                  <div class="tab-pane fade accordion-item" id="addressTabPane" 
+                     role="tabpanel" aria-labelledby="addressTab" tabindex="0">
+                     <div class="accordion-body">
+                        <div class="m-0 p-0">
+                           <h2 class="title p-3">ADDRESS BOOK</h2>
+                        </div>
+                        <div class="row m-0">
+                           <div class="col-md-6 p-1">
+                              <div class="card">
+                                 <div class="card-header">
+                                    <div class="row d-flex m-0 p-0">
+                                       <div class="col-lg-12 p-0">
+                                          <div class="pull-left">
+                                             <p class="text-left m-0"><b>DELIVERY ADDRESS</b></p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="m-2" >
+                                    <div class="container_ card slide _billing p-2 mb-2" *ngFor="let data of deliveryAddress">
+
+                                       <div class="overlay" *ngIf="data._id!=0">
+                                          <div class="icon-container">
+                                             <i class="pi pi-pencil p-1 text-secondary" style="font-size: 0.8rem" (click)="editAddress(data)" ></i>
+                                             <i class="pi pi-trash p-1 text-danger" style="font-size: 0.8rem" (click)="deleteAddress(data._id)" ></i>
+                                          </div>
+                                     
+                                        </div>
+
+                                       <h3><strong> {{data.username|uppercase}} </strong> </h3>
+                                       <div class="d-flex flex-row">
+                                          <div class=""><small class="tax_label">Address:  </small> </div>
+                                          <div class="">
+                                             <p>&nbsp;{{data.addressLine1}}  <small class="landmark" *ngIf="data.landmark">({{data.landmark}})</small>,  {{data.addressLine2}} , {{data.city}},  {{data.state}} - {{data.pincode}} </p>
+                                          </div>
+                                       </div>
+                                       <p><small class="tax_label">Mobile No. : </small> {{data.contactNumber}}</p>
+                                    </div>
+                                    <div class="text-center p-4" *ngIf="deliveryAddress?.length==0">
+                                       <small><u>No Delivery address found</u></small>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-md-6 p-1">
+                              <div class="card mb-1">
+                                 <div class="card-header">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                       <p class="text-left m-0"><b>BILLING ADDRESS</b></p>
+                                    </div>
+                                 </div>
+                                 <!-- <pre> {{billingAddress|json}}</pre> -->
+                                 <div class="card-body _billing" *ngIf="billingAddress">
+                                    <h3><strong> {{billingAddress.username|uppercase}} </strong> </h3>
+                                    <p><small class="tax_label">Trade Name : </small> {{billingAddress.tradeName}} </p>
+                                    <p><small class="tax_label">GST No. : </small> {{billingAddress.gstno}}</p>
+                                    <div class="d-flex flex-row">
+                                       <div class=""><small class="tax_label">Address:&nbsp;</small> </div>
+                                       <div class="">
+                                          <p>{{billingAddress.addressLine1}},  {{billingAddress.addressLine2}}, {{billingAddress.city}},  {{billingAddress.state}} - {{billingAddress.pincode}}</p>
+                                       </div>
+                                    </div>
+                                    <p><small class="tax_label">Email : </small> {{billingAddress.email}}</p>
+                                    <p><small class="tax_label">Mobile No. : </small> {{billingAddress.contactNumber}}</p>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="mt-2 d-flex justify-content-end"  *ngIf="!_addAddress">
+                           <button  class="m-2 btn bu-btn-blue bu-btn-login" (click)="addAddress()">Add new delivery address</button>                     
+                        </div>
+
+            
+                        <div class="card-body _addressForm fadeIn" *ngIf="_addAddress">
+                           <div class="m-0 p-0">
+                              <h2 class="title p-3">{{!_is_EditAddress?"ADD NEW ADDRESS":"UPDATE ADDRESS"}}</h2>
+                           </div>
+   
+                           <form  [formGroup]="form" (ngSubmit)="onSubmit()" >
+                           <div class="row kyc-form">
+                              <div class="card _card_border">
+                                 <div class="card-body">
+                                    <div class="row">
+                                       <div class="col-md-4">
+                                          <div class="form-floating mb-4">
+                                             <input   (keydown)="Space($event)" (keypress)="omit_special_char($event)"  type="text" class="form-control" 
+                                             placeholder="Name"  formControlName="username"
+                                             [ngClass]="{'is-invalid': isSubmit && ff['username'].errors }">
+                                             <label for="name">Name*</label>
+                                             <div *ngIf="isSubmit && ff['username'].errors" class="invalid-feedback">
+                                                <small *ngIf="ff['username'].errors?.['required']">Name is required</small>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-4">
+                                          <div class="form-floating mb-4">
+                                             <input  appIntegerOnly  (keydown)="Space($event)" (keypress)="omit_special_char($event)" type="number" class="form-control" 
+                                             placeholder="SubCategory Name"  formControlName="contactNumber" maxlength="10"
+                                             [ngClass]="{'is-invalid': isSubmit && ff['contactNumber'].errors }"
+                                             >
+                                             <label for="name">Contact Number*</label>
+                                             <div *ngIf="isSubmit && ff['contactNumber'].errors" class="invalid-feedback">
+                                                <small *ngIf="ff['contactNumber'].errors?.['required']">Enter your Contact Number</small>
+                                                <small *ngIf="ff['contactNumber'].errors?.['pattern']">Invalid Contact Number</small>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-4">
+                                          <div class="form-floating mb-4">
+                                             <input type="text" class="form-control"  (keydown)="Space($event)" 
+                                                placeholder="Address Line 1"  formControlName="addressLine1"
+                                                [ngClass]="{'is-invalid': isSubmit && ff['addressLine1'].errors }">
+                                             <label for="name">Address Line 1*</label>
+                                             <div *ngIf="isSubmit && ff['addressLine1'].errors" class="invalid-feedback">
+                                                <small *ngIf="ff['addressLine1'].errors?.['required']">Enter Address Line 1</small>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="row">
+                                       <div class="col-md-4">
+                                          <div class="form-floating mb-4">
+                                             <input type="text" class="form-control"  (keydown)="Space($event)" 
+                                                placeholder="Address Line 2"  formControlName="addressLine2"
+                                                [ngClass]="{'is-invalid': isSubmit && ff['addressLine2'].errors }">
+                                             <label for="name">Address Line 2*</label>
+                                             <div *ngIf="isSubmit && ff['addressLine2'].errors" class="invalid-feedback">
+                                                <small *ngIf="ff['addressLine2'].errors?.['required']">Enter Address Line 2</small>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-4">
+                                          <div class="form-floating mb-4">
+                                             <input type="text" class="form-control"  (keydown)="Space($event)" 
+                                                placeholder="Landmark (near by)"  formControlName="landmark">
+                                             <label for="name">Landmark (near by)</label>
+                                          
+                                          </div>
+                                       </div>
+                                       <div class="col-md-4">
+                                          <div class="form-floating mb-4">
+                                             <input type="text" class="form-control" 
+                                                placeholder="State"  formControlName="state" (keydown)="Space($event)" 
+                                                [ngClass]="{'is-invalid': isSubmit && ff['state'].errors }">
+                                             <label for="name">State*</label>
+                                             <div *ngIf="isSubmit && ff['state'].errors" class="invalid-feedback">
+                                                <small *ngIf="ff['state'].errors?.['required']">Enter your State</small>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="row">
+                                       <div class="col-md-4">
+                                          <div class="form-floating mb-4">
+                                             <select class="form-control" formControlName="city"  (change)="getPINCODE()" 
+                                             [ngClass]="{'is-invalid': isSubmit && ff['city'].errors }">
+                                             <option disabled value="">Select City</option>
+                                             <option *ngFor="let data of cities" [value]="data">
+                                             {{ data }}
+                                             </option>
+                                             </select>
+                                             <label for="name">City*</label>
+                                             <div *ngIf="isSubmit && ff['city'].errors" class="invalid-feedback">
+                                                <small *ngIf="ff['city'].errors?.['required']">Enter your City</small>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-4">
+                                          <div class="form-floating mb-4">
+                                             <select class="form-control" formControlName="pincode" [ngClass]="{'is-invalid': isSubmit && ff['pincode'].errors }">
+                                                <option disabled value="">Select PINCODE</option>
+                                                <option *ngFor="let data of pincode" [value]="data">
+                                                {{ data }}
+                                                </option>
+                                             </select>
+                                             <label for="name">PINCODE*</label>
+                                             <div *ngIf="isSubmit && ff['pincode'].errors" class="invalid-feedback">
+                                                <small *ngIf="ff['pincode'].errors?.['required']">Enter your PINCODE</small>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="d-flex justify-content-end">
+                                       <button   type="submit" class="m-2 btn bu-btn-blue bu-btn-login">{{!_is_EditAddress?"Save address":"Update Address"}}</button> 
+                                       <button   type="submit" class="m-2 btn bu-btn-cancel"  (click)="cancel()">Cancel</button>                     
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           </form>   
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="tab-content accordion bu-acn-content" id="myTabContent">
+                  <!------------------- my orderss----------------->
+                  <div class="tab-pane fade accordion-item" id="ordersTabPane" 
+                     role="ordersTab" aria-labelledby="ordersTab" tabindex="0">
+                     <div class="accordion-body">
+                        <!-- <div class="m-0 p-0">
+                           <h2 class="title p-3">MY ORDERS</h2>
+                        </div> -->
+                        <div class="card row m-0 p-3">
+                           <div class="table-responsive p-0 m-0">
+                              <table class="table custom-class">
+                                 <thead>
+                                    <tr>
+                                       <!---->
+                                       <th></th>
+                                       <th>ORDER</th>
+                                       <th>ORDER DATE</th>
+                                       <th>ORDER STATUS</th>
+                                       <th>TOTAL</th>
+                                       <th>DELIVERY ADDRESS</th>
+                                       <th>PAYMENT STATUS</th>
+                                       <!-- <th>ACTIONS</th> -->
+                                    </tr>
+                                 </thead>
+                                 <tbody  class="pointer"  *ngFor="let data of myOrdersLists|  paginate : {
+                                             itemsPerPage: tableSize,
+                                             currentPage: page,
+                                             totalItems: count
+                                             };let i=index"   (click)="viewOrderInfo(data)"  [ngStyle]="{'border': data.orderId===selected_OrderId ? '3px solid #8fae1b' : '' }">  
+                                    <tr>
+                                       <td class="">&nbsp;&nbsp;{{i+1}}</td>
+                                       <td class="">{{data.orderId}}</td>
+                                       <td>
+                                          {{data.orderedDate| date: 'dd-MMM-yyyy hh:mm a'}} 
+                                       </td>
+                                       <td>
+                                          <span [ngClass]="{
+                                             'badge-success' : data.status==='Delivered' || data.status==='Partial Delivered',
+                                             'badge-pending' : data.status==='Transit',
+                                             'badge-process' : data.status==='In Process',
+                                             'badge-dispatched' :data.status ==='Dispatched',
+                                             'badge-cancelled' :data.status==='Cancelled'||data.status==='Failed'}"
+                                             class="badge d-inline">{{data.status}}</span>
+                                       </td>
+                                       <td class="amount">
+                                          {{data.totalPriceWithGST | currency:'INR'}}
+                                       </td>
+                                       <td>
+                                          {{data.deliveryAddress.addressLine1}}, <br>
+                                          {{data.deliveryAddress.addressLine2}}, <br>
+                                          {{data.deliveryAddress.city}},
+                                          {{data.deliveryAddress.state}}-{{data.deliveryAddress.pincode}}
+                                       </td>
+                                       <td>{{data.paymentStatus |uppercase}}</td>
+                                       <td></td>
+                                       <!-- <td class="myOrder">
+                                          <button (click)="viewOrderInfo(data)">View</button>
+                                          <button *ngIf="data.status ==='In Process' && data.paymentStatus === 'success'" (click)="cancelOrder(data.orderId,data.totalPriceWithGST)">Cancel Order</button>
+                                       </td> -->
+                                    </tr>
+                                    <tr *ngIf="data.orderId == selected_OrderId">
+                                       <td colspan="12" class="p-1" >
+                                          <div class="card p-3" >
+                                             <!-- <div class="myOrder">
+                                                <button (click)="onBackClick()">View All Orders</button>
+                                             </div> -->
+                                             <div class="p-2">
+                                                <small>Order <span class="text-yellow"><b>#{{_orderDetails.orderId}}</b></span>was placed on
+                                                <span class="text-yellow"><b>{{_orderDetails.orderedDate | date: 'dd-MMM-yyyy hh:mm a'}}</b></span> 
+                                                and is currently <span [ngClass]="{
+                                                   'badge-success' : _orderDetails.status==='Delivered' || _orderDetails.status==='Partial Delivered',
+                                                   'badge-pending' : _orderDetails.status==='Transit',
+                                                   'badge-process' : _orderDetails.status==='In Process',
+                                                   'badge-dispatched' :_orderDetails.status ==='Dispatched',
+                                                   'badge-cancelled' :_orderDetails.status ==='Cancelled'}"> 
+                                                <b class="">{{_orderDetails.status}}</b>
+                                                </span>
+                                                </small>
+                                             </div>
+                                             <div class="row mt-3 p-0">
+                                                <div class="col-md-12 row m-0 p-0">
+                                                   <div class="col-md-6 p-2">
+                                                      <div class="card">
+                                                         <div class="card-header">
+                                                            <div class="d-flex align-items-center justify-content-between">
+                                                               <p class="text-left m-0"><b>BILLING ADDRESS</b></p>
+                                                            </div>
+                                                         </div>
+                                                         <!-- <pre> {{billingAddress|json}}</pre> -->
+                                                         <div class="card-body _billing">
+                                                            <h3><strong> {{billingAddress.username|uppercase}} </strong> </h3>
+                                                            <p><small class="tax_label">Trade Name : </small> {{billingAddress.tradeName}} </p>
+                                                            <p><small class="tax_label">GST No. : </small> {{billingAddress.gstno}}</p>
+                                                            <div class="d-flex flex-row">
+                                                               <div class=""><small class="tax_label">Address:&nbsp;</small> </div>
+                                                               <div class="">
+                                                                  <p>{{billingAddress.addressLine1}},  {{billingAddress.addressLine2}}, {{billingAddress.city}},  {{billingAddress.state}} - {{billingAddress.pincode}}</p>
+                                                               </div>
+                                                            </div>
+                                                            <p><small class="tax_label">Email : </small> {{billingAddress.email}}</p>
+                                                            <p><small class="tax_label">Mobile No. : </small> {{billingAddress.contactNumber}}</p>
+                                                         </div>
+                                                      </div>
+                                             
+                                                   </div>
+                                                   <div class="col-md-6 p-2">
+                                                      <div class="card">
+                                                         <div class="card-header">
+                                                            <div class="d-flex align-items-center justify-content-between">
+                                                               <p class="text-left m-0"><b>DELIVERY ADDRESS</b></p>
+                                                            </div>
+                                                         </div>
+                                                         <!-- <pre> {{billingAddress|json}}</pre> -->
+                                                         <div class="card-body _billing">
+                                                            <div class="">
+                                                               <p>{{_orderDetailedInformation.deliveryAddress.addressLine1}}<br>
+                                                                  {{_orderDetailedInformation.deliveryAddress.addressLine2}},<br>
+                                                                  {{_orderDetailedInformation.deliveryAddress.city}},<br>  
+                                                                  {{_orderDetailedInformation.deliveryAddress.state}} -
+                                                                  {{_orderDetailedInformation.deliveryAddress.pincode}}
+                                                               </p>
+                                                            </div>
+                                                            <p>{{_orderDetailedInformation.deliveryAddress.contactNumber}}</p>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                   <div class="card mb-1">
+                                                      <div class="card-header">
+                                                         <div class="d-flex align-items-center justify-content-between">
+                                                            <p class="text-left m-0"><b>ORDER DETAILS</b></p>
+                                                         </div>
+                                                      </div>
+                                                      <div class="card-body _billing">
+                                                         <table class="table table-bordered">
+                                                            <thead>
+                                                               <tr>
+                                                                  <th>S.No</th>
+                                                                  <th>PRODUCT</th>
+                                                                  <th>UNIT PRICE</th>
+                                                                  <th>MRP</th>
+                                                                  <th>GST</th>
+                                                                  <th class="text-center">ORDERED UNIT</th>
+                                                                  <th class="text-end">SUB TOTAL</th>
+                                                               </tr>
+                                                            </thead>
+
+                                                       <!-- <pre>  {{_orderDetailedProductLists|json}}</pre> -->
+                                                            <tbody>
+                                                               <tr *ngFor="let data of _orderDetailedProductLists ;let i=index">
+                                                                  <td class="text-center">{{i+1}}</td>
+                                                                  <td>
+                                                                     <div class="my-auto">
+                                                                        <h3>{{data.productDetails.productName}}</h3>
+                                                                        <p><small class="tax_label font14">Quantity: </small>{{data.productDetails.quantity}}</p>
+                                                                     </div>
+                                                                  </td>
+
+                                                                  <td>
+                                                                     <div><span class="amount"> {{data.unitPriceWithGST |currency:'INR'}}</span> <small class="tax_label"> (incl. GST)</small></div> 
+                                                                     <div><span class="amount_"> {{data.unitPriceWithoutGST |currency:'INR'}}</span> <small class="tax_label"> (without GST)</small></div> 
+                                                                  </td>
+                                                                  <td><span class="amount"> {{data.productDetails.mrp |currency:'INR'}}</span>  </td>
+                                                                  <td>
+                                                                     <div class="form-group row m-0">
+                                                                        <p>SGST : <span>{{data.productDetails.sgst}}% </span> </p>
+                                                                     </div>
+                                                                     <div class="form-group row  m-0">
+                                                                        <p>CGST : <span>{{data.productDetails.cgst}}%</span> </p>
+                                                                    </div>
+                                                                  </td>
+                                                                  <td class="text-center"><p>{{data.orderedUnit.symbolToBeDisplayed}}</p></td>
+
+                                                                  <td class="text-end">
+                                                                     <div><span class="amount"> {{data.totalPriceWithGST |currency:'INR'}}</span> <small class="tax_label"> (incl. GST)</small></div>
+                                                                  </td>
+                                                               </tr>
+                                                            </tbody>
+                                                         </table>
+                                                         <div class="row d-flex m-0 p-0">
+                                                            <div class="col-lg-12">
+                                                               <div class="pull-left">
+                                                                  <b>Total Price</b> :
+                                                               </div>
+                                                               <div class="pull-right">
+                                                                  <span class="amount"> {{_orderDetailedInformation.totalPriceWithGST |currency:'INR'}}</span> <small class="tax_label"> (incl. GST)</small>
+                                                               </div>
+                                                            </div>
+                                                         </div>
+                                                      </div>
+                                                      <div class="p-3">
+                                                         <div class="d-flex font14">
+                                                            Payment Method : &nbsp;<b>{{_orderDetailedInformation.paymentType}}</b>
+                                                         </div>
+                                                         <div class="d-flex font14">
+                                                            Payment Status : &nbsp;<b>{{_orderDetailedInformation.paymentStatus}}</b>
+                                                         </div>
+                  
+                                                      </div>
+                                                  
+                                                   </div>
+
+                                                   <div class="card mb-1"   *ngIf="is_SplitDelivery">
+                                                      <div class="card-header">
+                                                         <div class="d-flex align-items-center justify-content-between">
+                                                            <p class="text-left m-0"><b>SPLIT ORDER DETAILS</b></p>
+                                                         </div>
+                                                      </div>
+                                                      <div class="card-body _billing">
+                                                         <div class="table-responsive">
+                                                            <div class="card slide p-2">
+                                                            
+                                                               <table class="_orders table split">
+                                                                  <thead>
+                                                                     <tr>
+                                                                        <th>S.NO</th>
+                                                                        <th>VECHILE NO</th>
+                                                                        <th>eWAY BILL NO. </th>
+                                                                        <th>DELIVERED DATE</th>
+                                                            
+                                                                        <th>STATUS</th>
+
+                                                                     </tr>
+                                                                  </thead>
+                                                                  <!-- {{splitDeliveryDetails|json}} -->
+                                                                  <tbody  *ngFor="let data of splitDeliveryDetails ;let i=index">
+                                                                     <tr class="p-2">
+                                                                        <td>{{i+1}}</td>
+                                                                        <td class="">{{data._id.vehicleNo}}</td>
+                                                                        <td class="">{{data._id.einvoiceDetails.eWayBillNo}}</td>
+                                                                        <td class="">{{data._id.deliveredDate}}</td>
+                                                                        <td class="">{{data._id.status}} </td>
+                                                                     </tr>
+                                                                     <tr>
+                                                                        <td colspan="12" class="p-3 mt-3" >
+                                                                           <div class="table-responsive p-0">
+                                                                              <table class="table table-bordered">
+                                                                                 <thead>
+                                                                                    <tr>
+                                                                                       <th>S.NO</th>
+                                                                                       <th>PRODUCT</th>
+                                                                                       <th class="text-end">TOTAL PRICE</th>
+                                                                                       <!-- <th class="text-end">DOWNLOAD<br> INVOICE</th> -->
+                                                                                    </tr>
+                                                                                 </thead>
+                                                                                 <tbody class="innerTable">
+                                                                                    <tr *ngFor="let item of data.deliveryDetails ;let j=index">
+                                                                                       <td class="text-center">{{ j+1}}</td>
+                                                                                       <td>
+                                                                                          <div class="my-auto">
+                                                                                             <div class="info my-auto">
+                                                                                                <h3><b>{{item.productDetails.productName |uppercase}}</b></h3>
+                                                                                                <p><small class="tax_label font14">Quantity: </small>{{item.quantity}}</p>
+
+                                                                                             </div>
+                                                                                          </div>
+                                                                                       </td>
+                                                                                       <td class="text-end">
+                                                                                          <div><span class="amount"> {{item.totalPriceWithGST |currency:'INR'}}</span> <small class="tax_label"> (incl. GST)</small></div>
+                                                                                       </td>
+                                                                                    </tr>
+                                                                                 </tbody>
+                                                                              </table>
+                                                                           </div>
+                                                                        </td>
+                                                                     </tr>
+                                                                  </tbody>
+                                                               </table>
+                                                            </div>
+
+                                                      
+                                                         </div>
+                                                      </div>
+                                                     
+                                                  
+                                                   </div>
+                                                   
+                                                   <div class="myOrder">
+                                                      <button *ngIf="_orderDetails.status ==='In Process' && _orderDetails.paymentStatus === 'success'" (click)="cancelOrder(_orderDetails.orderId,_orderDetailedInformation.totalPriceWithGST)">Cancel Order</button>
+                                                   </div>
+                                                </div>
+                                              
+                                             </div>
+                                          </div>
+                                       </td>
+                                    </tr>  
+                                 </tbody>
+                              </table>
+                                 <div class="text-center p-4" *ngIf="myOrdersLists.length==0">
+                                    <small><u>No Orders found</u></small>
+                                 </div>
+                              <div class="card-footer">
+                                 <pagination-controls  class="sl-pagination text-center justify-content-center d-flex"
+                                    previousLabel="Prev"
+                                    nextLabel="Next"
+                                    (pageChange)="onTableDataChange($event)" >
+                                 </pagination-controls>
+                              </div>
+                           </div>
+                        </div>
+
+                     </div>
+                  </div>
+               </div>
+               <div class="tab-content accordion bu-acn-content" id="myTabContent">
+                  <!------------------- my payment history----------------->
+                  <div class="tab-pane fade accordion-item" id="paymentTabPane" 
+                     role="paymentTab" aria-labelledby="paymentTab" tabindex="0">
+                     <div class="accordion-body  p-3">
+                        <div class="m-0 p-0">
+                           <h2 class="title p-3">MY PAYMENT HISTORY</h2>
+                        </div>
+                        <div class="card row m-0">
+                           <div class="table-responsive p-0 m-0">
+                              <table class="table custom-class">
+                                 <thead>
+                                    <tr>
+                                       <!---->
+                                       <th>S.NO </th>
+                                       <th>ORDER ID</th>
+                                       <th>TOTAL PRICE(with GST)</th>
+                                       <th>TOTAL PRICE(without GST)</th>
+                                       <th>ORDER STATUS</th>
+                                       <th>PAYMENT TYPE</th>
+                                       <th>PAYMENT STATUS</th>
+                                       <th>PAYMENT DATE</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody  *ngFor="let data of _paymentHistoryData;let i=index">  
+                                    <tr class="">
+                                       <td class="">&nbsp;&nbsp;{{i+1}}</td>
+                                       <td class="">{{data.orderId}}</td>
+                                       <td class="amount">{{data.totalPriceWithGST | currency:'INR'}}</td>
+                                       <td class="amount">{{data.totalPriceWithoutGST | currency:'INR'}}</td>
+                                       <td>
+                                          <span [ngClass]="{
+                                             'badge-success' : data.status==='Delivered' || data.status==='Partial Delivered',
+                                             'badge-pending' : data.status==='Transit',
+                                             'badge-process' : data.status==='In Process',
+                                             'badge-dispatched' :data.status ==='Dispatched',
+                                             'badge-cancelled' :data.status==='Cancelled' || data.status==='Failed'}"
+                                             class="badge d-inline">{{data.status}}</span>
+                                       </td>
+                                       <td> {{data.paymentHistory.length>0?data.paymentHistory[0].type:"-"}}</td>
+                                       <td> {{data.paymentHistory.length>0? (data.paymentHistory[0].paymentStatus|uppercase) : "PENDING"}}</td>
+                                       <td> {{data.paymentHistory.length>0? (data.paymentHistory[0].date| date: 'dd-MMM-yyyy hh:mm a'):"-"}}  </td>
+                                     
+                                    </tr>
+ 
+                                    <!--<tr class="">
+                                       <td colspan="12" class="p-3" >
+                                          <div class="card table-responsive p-1">
+                                             <table class="table table-flush">
+                                                <thead>
+                                                   <tr>
+                                                      <th>S.NO</th>
+                                                      <th>PAYMENT TYPE</th>
+                                                      <th>PAYMENT STATUS</th>
+                                                      <th>PAYMENT DATE</th>
+                                                   </tr>
+                                                </thead>
+                                                <tbody class="innerTable">
+                                                   <tr *ngFor="let item of data.paymentHistory ;let j=index">
+                                                        <td class="text-center">{{ j+1}}</td>
+                                                        <td> {{item.type}}</td>
+                                                        <td> {{item.paymentStatus|uppercase}}</td>
+                                                        <td> {{item.date| date: 'dd-MMM-yyyy hh:mm a'}}  </td>
+                                                   </tr>
+                                                </tbody>
+                                             </table>
+                                          </div>
+                                       </td>
+                                    </tr> -->
+                                 </tbody>
+                              </table>
+                                 <div class="text-center p-4" *ngIf="_paymentHistoryData.length==0">
+                                    <small><u>No Data found</u></small>
+                                 </div>
+                              <!-- <div class="card-footer">
+                                 <pagination-controls  class="sl-pagination text-center justify-content-center d-flex"
+                                    previousLabel="Prev"
+                                    nextLabel="Next"
+                                    (pageChange)="onTableDataChange($event)" >
+                                 </pagination-controls>
+                              </div> -->
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                      <!------------------- my payment history----------------->
+               </div>
+               <div class="tab-content accordion bu-acn-content" id="myTabContent">
+                  <!------------------- my orderss----------------->
+                  <div class="tab-pane fade accordion-item" id="accountsTabPane" 
+                     role="accountsTab" aria-labelledby="accountsTab" tabindex="0">
+                     <div class="accordion-body">
+                        <div class="card p-3" >
+                           
+                           <div class="form-group">
+                              <p>User Name :  <span>{{userInfo.username}} </span> </p>
+                           </div>
+                           <div class="form-group">
+                              <p>Trade Name : <span> {{userInfo.tradeName}}</span> </p>
+                           </div>
+                           <div class="form-group">
+                              <p>Email : <span> {{userInfo.email}}</span> </p>
+                           </div>
+                           <div class="form-group">
+                              <p>Mobile Number : <span>{{userInfo.mobileNo}} </span> </p>
+                           </div>
+                           <div class="form-group ">
+                              <p>GST No : <span>{{userInfo.gstNo}} </span> </p>
+                           </div>
+                           <div class="form-group ">
+                              <p>Address: <span>{{userInfo.addressLine1}}, {{userInfo.addressLine2}}
+                                 , {{userInfo.state}}, {{userInfo.city}}, {{userInfo.pincode}}</span> 
+                              </p>
+                           </div>
+                           
+                           <!-- <div class="bu-category-wrap">
+                              <div class="row">
+                                 <div class="col-xs-6 col-sm-6 col-md-4">
+                                    <div class="bu-categoryInner">
+                                       <div class="clearfix">
+                                          <h5>AADHAR</h5>
+                                          <img src="https://buimat.com/api/users/signedUrl?image={{userInfo.aadharLinked}}&token={{bearerToken}}" onerror="this.src='/assets/img/project/logo.svg'" class="detailed-img p-1">
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-xs-6 col-sm-6 col-md-4">
+                                    <div class="bu-categoryInner">
+                                       <div class="clearfix">
+                                          <h5>PAN</h5>
+                                          <img src="https://buimat.com/api/users/signedUrl?image={{userInfo.panLinked}}&token={{bearerToken}}" onerror="this.src='/assets/img/project/logo.svg'" class="detailed-img p-1">
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-xs-6 col-sm-6 col-md-4">
+                                    <div class="bu-categoryInner">
+                                       <div class="clearfix">
+                                          <h5>SHOP PROOF</h5>
+                                          <img src="https://buimat.com/api/users/signedUrl?image={{userInfo.tradeLicenseLinked}}&token={{bearerToken}}" onerror="this.src='/assets/img/project/logo.svg'" class="detailed-img p-1">
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div> -->
+                           <div class="row">
+                              <div class="c_password">
+                                 <p class="">CHANGE PASSWORD</p>
+                                 <form  [formGroup]="passwordForm" (ngSubmit)="onChangePassword()" >
+                                    <div class="row kyc-form">
+                                       <div class="card _card_border">
+                                          <div class="card-body p-2">
+                                             <div class="row">
+                                               
+                                                <div class="col-md-4">
+                                                   <label class="_label">Old Password</label>
+                                                   <div class="input-group mb-4">
+                                                      <input type="password" class="form-control p-2" [type]="fieldTextType_oPassword ? 'text' : 'password'" 
+                                                         placeholder="Enter Password"  formControlName="oldPassword"
+                                                            [ngClass]="{'is-invalid': isPasswordSubmit && fp['oldPassword'].errors }">
+                                                    
+                                                       <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                            <i class="pi p-2" [ngClass]="{
+                                                               'pi-eye-slash': !fieldTextType_oPassword,
+                                                               'pi-eye': fieldTextType_oPassword
+                                                            }"
+                                                            (click)="toggle_old_password()"></i>
+                                                            </span>
+                                                       </div>
+                                                      <div *ngIf="isPasswordSubmit && fp['oldPassword'].errors" class="invalid-feedback">
+                                                         <small *ngIf="fp['oldPassword'].errors?.['required']">Old Password is required</small>                           
+                                                      </div> 
+                                                   </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                   <label class="_label">New Password</label>
+                                                   <div class="input-group mb-4">
+                                                      <input type="password" class="form-control p-2" [type]="fieldTextType_nPassword ? 'text' : 'password'" 
+                                                      placeholder="Enter Password"  formControlName="newPassword"
+                                                          [ngClass]="{'is-invalid': isPasswordSubmit && fp['newPassword'].errors }">
+                                                          <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                            <i class="pi p-2" [ngClass]="{
+                                                               'pi-eye-slash': !fieldTextType_nPassword,
+                                                               'pi-eye': fieldTextType_nPassword
+                                                            }"
+                                                            (click)="toggle_new_password()"></i>
+                                                            </span>
+                                                       </div>
+                                                    <div *ngIf="isPasswordSubmit && fp['newPassword'].errors" class="invalid-feedback">
+                                                      <small *ngIf="fp['newPassword'].errors?.['required']">New Password is required</small>
+                                                      <small *ngIf="fp['newPassword'].errors?.['minlength']">New Password must be at least 8 characters</small>
+                        
+                                                    </div> 
+                                                   </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                   <label class="_label">Confirm Password</label>
+                                                   <div class="input-group mb-4">
+                                                      <input type="password" class="form-control p-2" 
+                                                      placeholder="Enter Password"  formControlName="confirmPassword" [type]="fieldTextType_cNewPassword ? 'text' : 'password'"
+                                                          [ngClass]="{'is-invalid': isPasswordSubmit && fp['confirmPassword'].errors }">
+                                                    <!-- <label for="name">Confirm Password</label> -->
+                                                    <div class="input-group-append">
+                                                      <span class="input-group-text">
+                                                         <i class="pi p-2" [ngClass]="{
+                                                            'pi-eye-slash': !fieldTextType_cNewPassword,
+                                                            'pi-eye': fieldTextType_cNewPassword
+                                                         }"
+                                                         (click)="toggle_confirm_password()"></i>
+                                                         </span>
+                                                    </div>
+                                                    <div *ngIf="isPasswordSubmit && fp['confirmPassword'].errors" class="invalid-feedback">
+                                                      <small *ngIf="fp['confirmPassword'].errors?.['required']">Confirm Password is required</small>
+                                                      <small *ngIf="fp['confirmPassword'].errors?.['confirmedValidator']">Password should match with New Password</small>
+
+                                                    </div> 
+                                                   </div>
+                                                </div>
+                                             </div>
+                                           
+                                          </div>
+                                          <div class="row">
+                                             <div class="d-flex justify-content-start">
+                                                <button   type="submit" class="m-2 btn bu-btn-blue bu-btn-login">CHANGE PASSWORD</button>                     
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    </form>
+                              </div>
+                           </div>
+                      
+                        </div>
+
+                     </div>
+                  </div>
+               </div>
+
+            </div>
+         </div>
+      </div>
+   </section>
+</main>
+<p-toast></p-toast>
